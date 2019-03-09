@@ -1,0 +1,7 @@
+target 'MovieDb' do
+  pod 'Moya/RxSwift'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'SnapKit'
+  pod 'IQKeyboardManagerSwift'
+end
