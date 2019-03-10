@@ -21,19 +21,29 @@ class HomeNowPlayingTableViewCell : BaseTableViewCell {
         return collectionView
     }()
     
+    private let line = addComponent.view(addColor: .lineGray)
+    
     override func prepareView() {
         addBackgroundColor(addColor: .clear)
         addSubview(collectionView)
+        addSubview(line)
     }
     
     
     override func setConstraintsView() {
         collectionView.snp.makeConstraints{(make) in
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.height.equalTo(300)
+            make.height.equalTo(320)
+        }
+        
+        line.snp.makeConstraints{(make) in
+            make.top.equalTo(collectionView.snp_bottomMargin).offset(40)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+            make.height.equalTo(1)
+            make.bottom.equalToSuperview().offset(0)
         }
     }
     
@@ -55,13 +65,14 @@ extension HomeNowPlayingTableViewCell: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(HomeNowPlayingMoviesCollectionViewCell.self), for: indexPath) as? HomeNowPlayingMoviesCollectionViewCell {
             cell.configureCell(data: data[indexPath.row])
+            cell.animateCell()
             return cell
         }
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 280)
+        return CGSize(width: 200, height: 290)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

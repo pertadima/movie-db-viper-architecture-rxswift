@@ -7,7 +7,7 @@
 //
 
 enum HomeEnumSection {
-    case upComingMovie, trendingMovie, genreMovie, nowPlaying
+    case upComingMovie, trendingMovie, genreMovie, nowPlaying, popularMovie
     
     var title : String {
         switch self {
@@ -19,6 +19,8 @@ enum HomeEnumSection {
             return "Genres"
         case .nowPlaying:
             return "Now Playing"
+        case .popularMovie:
+            return "Popular Movies"
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  HomeNowPlayingMoviesCollectionViewCell.swift
+//  HomeGenreMovieCollectionViewCell.swift
 //  MovieDb
 //
 //  Created by Irfan Pertadima on 3/10/19.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
+class HomeUpcomingMoviesCollectionViewCell: BaseCollectionViewCell {
     private let image : CustomImageView = {
         let image = addComponent.customImage(rounded: 5)
         image.backgroundColor = AppColor.lineGray.color
@@ -17,7 +17,7 @@ class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
     }()
     
     private let movieTitle : UILabel = {
-        let title = addComponent.label(id: "label", type: .roboto_bold, text: "", size: 16, addColor: .black, align: .left)
+        let title = addComponent.label(id: "label", type: .roboto_medium, text: "", size: 14, addColor: .black, align: .left)
         title.numberOfLines = 1
         title.lineBreakMode = .byTruncatingTail
         return title
@@ -34,7 +34,7 @@ class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
-            make.height.equalTo(250)
+            make.height.equalTo(150)
         }
         
         movieTitle.snp.makeConstraints{(make) in

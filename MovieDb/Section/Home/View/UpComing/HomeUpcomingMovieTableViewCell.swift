@@ -30,9 +30,9 @@ class HomeUpcomingMovieTableViewCell : BaseTableViewCell {
     override func setConstraintsView() {
         collectionView.snp.makeConstraints{(make) in
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.height.equalTo(200)
         }
     }
@@ -55,6 +55,7 @@ extension HomeUpcomingMovieTableViewCell: UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(HomeUpcomingMoviesCollectionViewCell.self), for: indexPath) as? HomeUpcomingMoviesCollectionViewCell {
             cell.configureCell(data: data[indexPath.row])
+            cell.animateCell()
             return cell
         }
         return UICollectionViewCell()

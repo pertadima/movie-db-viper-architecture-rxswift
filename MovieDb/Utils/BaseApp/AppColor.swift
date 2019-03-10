@@ -9,7 +9,7 @@
 import UIKit
 
 public enum AppColor {
-    case appPrimary, appPrimaryDarker, textGray, lineGray, white, black, clear, red
+    case appPrimary, appPrimaryDarker, textGray, lineGray, white, black, clear, red, yellow
     
     var color : UIColor {
         switch self {
@@ -20,7 +20,7 @@ public enum AppColor {
         case .textGray:
             return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.54)
         case .lineGray:
-            return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.15)
+            return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.08)
         case .white:
             return UIColor.white
         case .black:
@@ -29,6 +29,8 @@ public enum AppColor {
             return UIColor.clear
         case .red:
             return UIColor.red
+        case .yellow:
+            return UIColor.yellow
         }
     }
 }

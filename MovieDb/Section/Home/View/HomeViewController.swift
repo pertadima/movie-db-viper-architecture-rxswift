@@ -13,9 +13,10 @@ class HomeViewController: UIViewController {
     var presentor:ViewToPresenterProtocol?
     var data: [UpcomingMoviesModel] = []
     var dataPlayingNow: [UpcomingMoviesModel] = []
+    var dataPopularMovie: [UpcomingMoviesModel] = []
     var dotIndicator: DotIndicatorView?
     
-    internal let menuSection : [HomeEnumSection] = [.nowPlaying, .upComingMovie, .genreMovie]
+    internal let menuSection : [HomeEnumSection] = [.nowPlaying, .popularMovie, .genreMovie, .upComingMovie]
     
     let snackbar = Snackbar(message: "",
                                duration: .middle,
@@ -31,6 +32,7 @@ class HomeViewController: UIViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.registerCellClass(HomeUpcomingMovieTableViewCell.self)
         tableView.registerCellClass(HomeNowPlayingTableViewCell.self)
+        tableView.registerCellClass(HomePopularMovieTableViewCell.self)
         tableView.estimatedRowHeight = view.frame.height
         return tableView
     }()
@@ -59,6 +61,7 @@ class HomeViewController: UIViewController {
         setConstraint()
         presentor?.startFetchingUpcomingMovie()
         presentor?.startFechingPlayingNowMovie()
+        presentor?.startFechingPopularMovie()
         setSearchBar()
     }
     
@@ -75,6 +78,7 @@ class HomeViewController: UIViewController {
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presentor?.startFetchingUpcomingMovie()
         presentor?.startFechingPlayingNowMovie()
+        presentor?.startFechingPopularMovie()
     }
     
     private func setSearchBar() {
@@ -97,6 +101,17 @@ extension HomeViewController: PresenterToViewProtocol {
         self.tableView.reloadData()
     }
     
+    func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
+        self.dataPlayingNow = data ?? []
+        self.tableView.reloadData()
+    }
+    
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
+        self.dataPopularMovie = Array(data?.prefix(upTo: 5) ?? [])
+        self.tableView.reloadData()
+    }
+    
+    
     func showError(error: String) {
         snackbar.message = error
         snackbar.messageTextColor = AppColor.red.color
@@ -109,11 +124,6 @@ extension HomeViewController: PresenterToViewProtocol {
         if isLoading {
             self.refreshControl.endRefreshing()
         }
-    }
-    
-    func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
-        self.dataPlayingNow = data ?? []
-        self.tableView.reloadData()
     }
 }
 

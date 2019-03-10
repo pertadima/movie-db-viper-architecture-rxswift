@@ -24,16 +24,16 @@ class HomePresenter: ViewToPresenterProtocol {
         interactor?.startFechingPlayingNowMovie()
     }
     
+    func startFechingPopularMovie() {
+        interactor?.startFechingPopularMovie()
+    }
+    
     func showMovieController(navigationController: UINavigationController) {
         
     }
 }
 
 extension HomePresenter: InteractorToPresenterProtocol {
-    func fetchedUpcomingMoviesSuccess(data: [UpcomingMoviesModel]?) {
-        view?.showUpcomingMovies(data: data)
-    }
-    
     func fetchFailed(error: String) {
         view?.showError(error: error)
     }
@@ -42,7 +42,15 @@ extension HomePresenter: InteractorToPresenterProtocol {
         view?.isLoading(isLoading: isLoading)
     }
     
+    func fetchedUpcomingMoviesSuccess(data: [UpcomingMoviesModel]?) {
+        view?.showUpcomingMovies(data: data)
+    }
+    
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
         view?.showNowPlayingMovie(data: data)
+    }
+    
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
+        view?.showPopularMoviesData(data: data)
     }
 }

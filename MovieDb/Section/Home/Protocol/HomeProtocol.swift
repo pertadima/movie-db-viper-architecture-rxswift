@@ -16,12 +16,14 @@ protocol ViewToPresenterProtocol: class{
     var router: PresenterToRouterProtocol? {get set}
     func startFetchingUpcomingMovie()
     func startFechingPlayingNowMovie()
+    func startFechingPopularMovie()
     func showMovieController(navigationController:UINavigationController)
 }
 
 protocol PresenterToViewProtocol: class{
     func showUpcomingMovies(data: [UpcomingMoviesModel]?)
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?)
     func showError(error: String)
     func isLoading(isLoading: Bool)
 }
@@ -34,11 +36,13 @@ protocol PresenterToInteractorProtocol: class {
     var presenter:InteractorToPresenterProtocol? {get set}
     func startFetchingUpcomingMovie()
     func startFechingPlayingNowMovie()
+    func startFechingPopularMovie()
 }
 
 protocol InteractorToPresenterProtocol: class {
     func fetchedUpcomingMoviesSuccess(data: [UpcomingMoviesModel]?)
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }
