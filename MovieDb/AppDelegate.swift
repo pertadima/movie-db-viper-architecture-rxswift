@@ -13,16 +13,17 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var navigation: UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let module = HomeRouter.createModule()
         
-        navigation = UINavigationController()
-        navigation?.viewControllers = [ViewController()]
+        /* Initiating instance of ui-navigation-controller with view-controller */
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [module]
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
-        self.window?.rootViewController = navigation
+        self.window?.rootViewController = navigationController
         
         IQKeyboardManager.shared.enable = true
         return true

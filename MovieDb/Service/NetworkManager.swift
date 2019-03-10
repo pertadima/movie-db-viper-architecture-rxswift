@@ -12,10 +12,11 @@ import RxCocoa
 
 protocol FetchApiServices {
     func fetchGenreMovie() -> Single<MovieGenresResponse?>
+    func fetchUpcomingMovie() -> Single<UpComingMoviesResponse?>
+    func fetchPlayingNowMovie() -> Single<UpComingMoviesResponse?>
 }
 
 final class NetworkManager: FetchApiServices {
-    private let disposeBag = DisposeBag()
     private let provider = MoyaProvider<NetworkService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     
     func request<T: Codable>(networkService: NetworkService) -> Single<T?> {
@@ -29,11 +30,10 @@ final class NetworkManager: FetchApiServices {
             .catchError { error -> PrimitiveSequence<SingleTrait, Response> in
                 return Single.error(APIError(with: .unknown, message: error.localizedDescription))
             }.flatMap {json -> Single<T?> in
-                
                 if json.statusCode >= 200 && json.statusCode <= 300 {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    if let response = try? JSONDecoder().decode(T.self, from: json.data) {
+                    if let response = try? decoder.decode(T.self, from: json.data) {
                         return Single.just(response)
                     }
                 } else {
@@ -47,6 +47,14 @@ final class NetworkManager: FetchApiServices {
     
     func fetchGenreMovie() -> Single<MovieGenresResponse?> {
         return request(networkService: .genreMovie)
+    }
+    
+    func fetchUpcomingMovie() -> Single<UpComingMoviesResponse?> {
+        return request(networkService: .upComingMovie)
+    }
+    
+    func fetchPlayingNowMovie() -> Single<UpComingMoviesResponse?> {
+        return request(networkService: .nowPlaying)
     }
 }
 

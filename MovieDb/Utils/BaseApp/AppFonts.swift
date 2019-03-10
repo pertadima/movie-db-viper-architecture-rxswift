@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum AppFonts {
+public enum AppFonts {
     case roboto_regular, roboto_bold, roboto_medium, roboto_light, lato_bold, lato_medium, lato_light
     
     public var customFont: String{

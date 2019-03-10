@@ -8,14 +8,14 @@
 
 import UIKit
 
-var addComponent: IComponentView {
+public var addComponent: IComponentView {
     struct Singleton {
         static let instance = ComponentView()
     }
     return Singleton.instance
 }
 
-protocol IComponentView {
+public protocol IComponentView {
     func collectionView() -> UICollectionView
     func collectionView(id: String, delegate: UICollectionViewDelegateFlowLayout, datasource: UICollectionViewDataSource, scrollDirection: UICollectionView.ScrollDirection, isEstimatedItemSize: Bool) -> UICollectionView
     func label(id: String, type: AppFonts, text: String, size: CGFloat, addColor: AppColor, align: NSTextAlignment) -> UILabel
@@ -31,8 +31,8 @@ protocol IComponentView {
     func imageFromFramework(id: String, image: String, className: AnyClass) -> UIImageView
 }
 
-class ComponentView: IComponentView {
-    func circularImage(id: String, background: AppColor) -> UIImageView {
+open class ComponentView: IComponentView {
+    public func circularImage(id: String, background: AppColor) -> UIImageView {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.accessibilityIdentifier = "image_identifier_\(id)"
@@ -45,7 +45,7 @@ class ComponentView: IComponentView {
         return imageView
     }
     
-    func imageFromFramework(id: String, image: String, className: AnyClass) -> UIImageView {
+    public func imageFromFramework(id: String, image: String, className: AnyClass) -> UIImageView {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.accessibilityIdentifier = "image_identifier_\(id)"
@@ -55,13 +55,13 @@ class ComponentView: IComponentView {
     }
     
     
-    func collectionView() -> UICollectionView{
+    public func collectionView() -> UICollectionView{
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }
     
-    func collectionView(id: String, delegate: UICollectionViewDelegateFlowLayout, datasource: UICollectionViewDataSource, scrollDirection: UICollectionView.ScrollDirection, isEstimatedItemSize: Bool) -> UICollectionView{
+    public func collectionView(id: String, delegate: UICollectionViewDelegateFlowLayout, datasource: UICollectionViewDataSource, scrollDirection: UICollectionView.ScrollDirection, isEstimatedItemSize: Bool) -> UICollectionView{
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = scrollDirection
         if isEstimatedItemSize{
@@ -78,7 +78,7 @@ class ComponentView: IComponentView {
         return collection
     }
     
-    func label(id: String, type: AppFonts, text: String, size: CGFloat, addColor: AppColor = .black, align: NSTextAlignment) -> UILabel {
+    public func label(id: String, type: AppFonts, text: String, size: CGFloat, addColor: AppColor = .black, align: NSTextAlignment) -> UILabel {
         let label = UILabel(frame: .zero)
         label.textColor = addColor.color
         label.accessibilityIdentifier = "label_identifier_\(id)"
@@ -91,7 +91,7 @@ class ComponentView: IComponentView {
         return label
     }
     
-    func image(id: String, image: UIImage) -> UIImageView {
+    public func image(id: String, image: UIImage) -> UIImageView {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.accessibilityIdentifier = "image_identifier_\(id)"
@@ -100,21 +100,21 @@ class ComponentView: IComponentView {
         return imageView
     }
     
-    func customImage(rounded: CGFloat) -> CustomImageView {
+    public func customImage(rounded: CGFloat) -> CustomImageView {
         let imageView: CustomImageView = CustomImageView(frame: CGRect.zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         if rounded > 0 {
             imageView.layer.borderColor = UIColor.white.cgColor
             imageView.layer.masksToBounds = true
-            imageView.layer.borderWidth = 1.0
+            imageView.layer.borderWidth = 0
             imageView.layer.cornerRadius = rounded
         }
         return imageView
     }
     
     
-    func view(addColor: AppColor) -> UIView {
+    public func view(addColor: AppColor) -> UIView {
         let view = UIView(frame: .zero)
         view.backgroundColor = addColor.color
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +122,7 @@ class ComponentView: IComponentView {
     }
     
    
-    func textField(id: String, placeholder: String, fontSize: CGFloat) -> UITextField {
+    public func textField(id: String, placeholder: String, fontSize: CGFloat) -> UITextField {
         let textfield: UITextField  = UITextField()
         textfield.accessibilityIdentifier = "textField_identifier_\(id)"
         textfield.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +134,7 @@ class ComponentView: IComponentView {
     }
     
     
-    func buttonCustomFont(id: String, title: String, corner: CGFloat, bgColor: AppColor, textColor: AppColor, isBorder: Bool, fontSize: CGFloat, type: AppFonts, borderColor: AppColor) -> UIButton {
+    public func buttonCustomFont(id: String, title: String, corner: CGFloat, bgColor: AppColor, textColor: AppColor, isBorder: Bool, fontSize: CGFloat, type: AppFonts, borderColor: AppColor) -> UIButton {
         let button: UIButton = UIButton()
         button.accessibilityIdentifier = "button_identifier_\(id)"
         button.setTitle(title, for: .normal)

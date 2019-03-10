@@ -23,13 +23,13 @@ extension NetworkService : TargetType {
     public var path: String {
         switch self {
         case .genreMovie:
-            return ""
+            return "genre/movie/list"
         case .trendingMovie:
             return ""
         case .upComingMovie:
-            return ""
+            return "movie/upcoming"
         case .nowPlaying:
-            return ""
+            return "movie/now_playing"
         }
     }
     
@@ -43,7 +43,7 @@ extension NetworkService : TargetType {
     
     public var task: Task {
         switch self {
-        case .genreMovie:
+        case .genreMovie, .upComingMovie, .nowPlaying:
             return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71"], encoding: URLEncoding.default)
         default:
             return .requestPlain

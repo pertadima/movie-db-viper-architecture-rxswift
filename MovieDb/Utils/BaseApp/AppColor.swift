@@ -8,8 +8,8 @@
 
 import UIKit
 
-enum AppColor {
-    case appPrimary, appPrimaryDarker, textGray, lineGray, white, black, clear
+public enum AppColor {
+    case appPrimary, appPrimaryDarker, textGray, lineGray, white, black, clear, red
     
     var color : UIColor {
         switch self {
@@ -27,6 +27,8 @@ enum AppColor {
             return UIColor.black
         case .clear:
             return UIColor.clear
+        case .red:
+            return UIColor.red
         }
     }
 }
