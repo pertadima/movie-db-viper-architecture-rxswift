@@ -7,8 +7,7 @@
 //
 
 import UIKit
-extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
          let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,  withReuseIdentifier: "header", for: indexPath) as! MoviesHeaderCollectionView
         headerView.configureHeader(data: data)
@@ -20,12 +19,12 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.data?.results?.count ?? 0
+        return self.dataList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(MoviesCollectionViewCell.self), for: indexPath) as? MoviesCollectionViewCell {
-            cell.configureCell(data: self.data?.results?[indexPath.row])
+            cell.configureCell(data: dataList[indexPath.item])
             return cell
         }
         return UICollectionViewCell()
@@ -48,9 +47,12 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
         return 10
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == (self.data?.results?.count ?? 0) - 2 {
-            dotIndicator?.startAnimating()
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if indexPath.item == (self.dataList.count ?? 0) - 2 && self.currentPage < self.totalPage {
+                self.currentPage += 1
+                presentor?.startFechingPlayingNowMoviePaging(page: currentPage)
+            }
         }
     }
 }

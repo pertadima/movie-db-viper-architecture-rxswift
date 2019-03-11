@@ -27,9 +27,17 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
     func startFetchingUpcomingMovie() {
         interactor?.startFetchingUpcomingMovie()
     }
+    
+    func startFechingPlayingNowMoviePaging(page: Int) {
+        interactor?.startFechingPlayingNowMoviePaging(page: page)
+    }
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {
+    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?) {
+        view?.showNowPlayingMoviePaging(data: data)
+    }
+    
     func showUpcomingMovies(data: UpComingMoviesResponse?) {
         view?.showUpcomingMovies(data: data)
     }

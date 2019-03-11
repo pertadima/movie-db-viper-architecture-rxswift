@@ -13,6 +13,7 @@ class MoviesController: UIViewController {
     var presentor: MoviesViewToPresenterProtocol?
     var dotIndicator: DotIndicatorView?
     var data: UpComingMoviesResponse?
+    var dataList: [UpcomingMoviesModel] = []
     var menuEnum: HomeEnumSection?
     let snackbar = Snackbar(message: "",
                             duration: .middle,
@@ -20,6 +21,10 @@ class MoviesController: UIViewController {
                             actionBlock: { (snackbar) in
                                 snackbar.dismiss()
     })
+    var currentPage: Int = 1
+    var totalPage: Int = 1
+    var beginIndex: Int = 0
+    var endIndex: Int = 0
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -36,7 +41,8 @@ class MoviesController: UIViewController {
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.registerCellClass(MoviesCollectionViewCell.self)
-         collectionView.register(MoviesHeaderCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView.prefetchDataSource = self
+        collectionView.register(MoviesHeaderCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         return collectionView
     }()
     
@@ -84,19 +90,75 @@ class MoviesController: UIViewController {
 }
 
 extension MoviesController: MoviesPresenterToViewProtocol {
-    func showUpcomingMovies(data: UpComingMoviesResponse?) {
+    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?) {
         self.data = data
-        collectionView.reloadData()
+        self.beginIndex = dataList.count
+        self.totalPage = data?.totalPages ?? 1
+        self.dataList += data?.results ?? []
+        
+        self.collectionView.performBatchUpdates({
+            var indexPathsCollection: [IndexPath] = []
+            if self.beginIndex < self.dataList.count - 1 {
+                for i in beginIndex...self.dataList.count - 1 {
+                    indexPathsCollection.append(IndexPath(item: i, section: 0))
+                }
+                self.collectionView.insertItems(at: indexPathsCollection)
+            }
+        }, completion: nil)
+    }
+    
+    func showUpcomingMovies(data: UpComingMoviesResponse?) {
+        self.dataList.removeAll()
+        self.data = data
+        self.dataList = data?.results ?? []
+        self.totalPage = data?.totalPages ?? 1
+        self.currentPage = data?.pages ?? 1
+        
+        self.collectionView.performBatchUpdates({
+            var indexPathsCollection: [IndexPath] = []
+            if self.beginIndex < self.dataList.count - 1 {
+                for i in beginIndex...self.dataList.count - 1 {
+                    indexPathsCollection.append(IndexPath(item: i, section: 0))
+                }
+                self.collectionView.insertItems(at: indexPathsCollection)
+            }
+        }, completion: nil)
     }
     
     func showPopularMoviesData(data: UpComingMoviesResponse?) {
+        self.dataList.removeAll()
         self.data = data
-        collectionView.reloadData()
+        self.dataList = data?.results ?? []
+        self.totalPage = data?.totalPages ?? 1
+        self.currentPage = data?.pages ?? 1
+        
+        self.collectionView.performBatchUpdates({
+            var indexPathsCollection: [IndexPath] = []
+            if self.beginIndex < self.dataList.count - 1 {
+                for i in beginIndex...self.dataList.count - 1 {
+                    indexPathsCollection.append(IndexPath(item: i, section: 0))
+                }
+                self.collectionView.insertItems(at: indexPathsCollection)
+            }
+        }, completion: nil)
     }
     
     func showNowPlayingMovie(data: UpComingMoviesResponse?) {
+        self.dataList.removeAll()
         self.data = data
-        collectionView.reloadData()
+        self.dataList = data?.results ?? []
+        self.totalPage = data?.totalPages ?? 1
+        self.currentPage = data?.pages ?? 1
+        
+        self.collectionView.performBatchUpdates({
+            var indexPathsCollection: [IndexPath] = []
+            if self.beginIndex < self.dataList.count - 1 {
+                for i in beginIndex...self.dataList.count - 1 {
+                    indexPathsCollection.append(IndexPath(item: i, section: 0))
+                }
+                self.collectionView.insertItems(at: indexPathsCollection)
+            }
+        }, completion: nil)
     }
     
     func fetchFailed(error: String) {

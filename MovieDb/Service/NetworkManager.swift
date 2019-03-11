@@ -15,6 +15,7 @@ protocol FetchApiServices {
     func fetchUpcomingMovie() -> Single<UpComingMoviesResponse?>
     func fetchPlayingNowMovie() -> Single<UpComingMoviesResponse?>
     func fetchPopularMovie() -> Single<UpComingMoviesResponse?>
+    func fetchPlayingNowMoviePaging(page: Int) -> Single<UpComingMoviesResponse?>
 }
 
 final class NetworkManager: FetchApiServices {
@@ -60,6 +61,10 @@ final class NetworkManager: FetchApiServices {
     
     func fetchPopularMovie() -> Single<UpComingMoviesResponse?>{
          return request(networkService: .popularMovie)
+    }
+    
+    func fetchPlayingNowMoviePaging(page: Int) -> Single<UpComingMoviesResponse?> {
+        return request(networkService: .nowPlayingMoviePaging(page: page))
     }
 }
 
