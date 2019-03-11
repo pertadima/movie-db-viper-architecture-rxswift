@@ -45,4 +45,18 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
+    
+    func startFetchingUpcomingMovie() {
+        presenter?.isLoading(isLoading: true)
+        service.fetchUpcomingMovie()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] tasks in
+                guard let `self` = self, let tasks = tasks else { return }
+                self.presenter?.showUpcomingMovies(data: tasks)
+                self.presenter?.isLoading(isLoading: false)
+            }) { [weak self] error in
+                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                self?.presenter?.isLoading(isLoading: false)
+            }.disposed(by: disposeBag)
+    }
 }

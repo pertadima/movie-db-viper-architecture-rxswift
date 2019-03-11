@@ -12,8 +12,8 @@ import SnapKit
 class MoviesController: UIViewController {
     var presentor: MoviesViewToPresenterProtocol?
     var dotIndicator: DotIndicatorView?
-    var data: [UpcomingMoviesModel] = []
-    
+    var data: UpComingMoviesResponse?
+    var menuEnum: HomeEnumSection?
     let snackbar = Snackbar(message: "",
                             duration: .middle,
                             actionText: "Close",
@@ -32,10 +32,11 @@ class MoviesController: UIViewController {
     
     private lazy var collectionView : UICollectionView = {
         let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .vertical, isEstimatedItemSize: false)
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.registerCellClass(MoviesCollectionViewCell.self)
+         collectionView.register(MoviesHeaderCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         return collectionView
     }()
     
@@ -47,6 +48,8 @@ class MoviesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addBackgroundColor(addColor: .white)
+        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        statusBar.backgroundColor = AppColor.white.color
         view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
         setConstraintView()
@@ -62,18 +65,37 @@ class MoviesController: UIViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        fetchPresenter()
+    }
+    
+    private func fetchPresenter() {
+        if menuEnum == .nowPlaying {
+            presentor?.startFechingPlayingNowMovie()
+        }
         
+        if menuEnum == .popularMovie {
+            presentor?.startFechingPopularMovie()
+        }
+        
+        if menuEnum == .upComingMovie {
+            presentor?.startFetchingUpcomingMovie()
+        }
     }
 }
 
 extension MoviesController: MoviesPresenterToViewProtocol {
+    func showUpcomingMovies(data: UpComingMoviesResponse?) {
+        self.data = data
+        collectionView.reloadData()
+    }
+    
     func showPopularMoviesData(data: UpComingMoviesResponse?) {
-        self.data = data?.results ?? []
+        self.data = data
         collectionView.reloadData()
     }
     
     func showNowPlayingMovie(data: UpComingMoviesResponse?) {
-        self.data = data?.results ?? []
+        self.data = data
         collectionView.reloadData()
     }
     

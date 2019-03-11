@@ -15,11 +15,13 @@ protocol MoviesViewToPresenterProtocol: class {
     var router: MoviesPresenterToRouterProtocol? {get set}
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
+    func startFetchingUpcomingMovie()
 }
 
 protocol MoviesPresenterToViewProtocol: class {
     func showNowPlayingMovie(data: UpComingMoviesResponse?)
     func showPopularMoviesData(data: UpComingMoviesResponse?)
+    func showUpcomingMovies(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }
@@ -32,6 +34,7 @@ protocol MoviesPresenterToInteratorProtocol: class {
     var presenter:MoviesInteratorToPresenterProtocol? {get set}
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
+    func startFetchingUpcomingMovie()
 }
 
 protocol MoviesInteratorToPresenterProtocol: class {
@@ -39,5 +42,6 @@ protocol MoviesInteratorToPresenterProtocol: class {
     func showPopularMoviesData(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
+    func showUpcomingMovies(data: UpComingMoviesResponse?)
 }
 
