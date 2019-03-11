@@ -17,19 +17,22 @@ protocol ViewToPresenterProtocol: class{
     func startFetchingUpcomingMovie()
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
-    func showMovieController(navigationController:UINavigationController)
+    func startFechingGenres()
+    func showMovieController(navigationController:UINavigationController, menuEnum: HomeEnumSection)
 }
 
 protocol PresenterToViewProtocol: class{
     func showUpcomingMovies(data: [UpcomingMoviesModel]?)
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
     func showPopularMoviesData(data: [UpcomingMoviesModel]?)
+    func showGenreMovie(data: [MovieGenresModel]?)
     func showError(error: String)
     func isLoading(isLoading: Bool)
 }
 
 protocol PresenterToRouterProtocol: class {
     static func createModule()-> HomeViewController
+    func showMovieController(navigationController:UINavigationController, menuEnum: HomeEnumSection)
 }
 
 protocol PresenterToInteractorProtocol: class {
@@ -37,12 +40,14 @@ protocol PresenterToInteractorProtocol: class {
     func startFetchingUpcomingMovie()
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
+    func startFechingGenres()
 }
 
 protocol InteractorToPresenterProtocol: class {
     func fetchedUpcomingMoviesSuccess(data: [UpcomingMoviesModel]?)
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
     func showPopularMoviesData(data: [UpcomingMoviesModel]?)
+    func showGenreMovie(data: [MovieGenresModel]?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }

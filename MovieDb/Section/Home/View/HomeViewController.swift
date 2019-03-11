@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     var data: [UpcomingMoviesModel] = []
     var dataPlayingNow: [UpcomingMoviesModel] = []
     var dataPopularMovie: [UpcomingMoviesModel] = []
+    var dataGenre: [MovieGenresModel] = []
     var dotIndicator: DotIndicatorView?
     
     internal let menuSection : [HomeEnumSection] = [.nowPlaying, .popularMovie, .genreMovie, .upComingMovie]
@@ -33,6 +34,7 @@ class HomeViewController: UIViewController {
         tableView.registerCellClass(HomeUpcomingMovieTableViewCell.self)
         tableView.registerCellClass(HomeNowPlayingTableViewCell.self)
         tableView.registerCellClass(HomePopularMovieTableViewCell.self)
+        tableView.registerCellClass(HomeGenreMovieTableViewCell.self)
         tableView.estimatedRowHeight = view.frame.height
         return tableView
     }()
@@ -59,10 +61,15 @@ class HomeViewController: UIViewController {
         view.addSubview(tableView)
         tableView.addSubview(refreshControl)
         setConstraint()
+        fetchPresenter()
+        setSearchBar()
+    }
+    
+    private func fetchPresenter() {
         presentor?.startFetchingUpcomingMovie()
         presentor?.startFechingPlayingNowMovie()
         presentor?.startFechingPopularMovie()
-        setSearchBar()
+        presentor?.startFechingGenres()
     }
     
     
@@ -76,9 +83,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        presentor?.startFetchingUpcomingMovie()
-        presentor?.startFechingPlayingNowMovie()
-        presentor?.startFechingPopularMovie()
+        fetchPresenter()
     }
     
     private func setSearchBar() {
@@ -96,6 +101,11 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: PresenterToViewProtocol {
+    func showGenreMovie(data: [MovieGenresModel]?) {
+        self.dataGenre = data ?? []
+        self.tableView.reloadData()
+    }
+    
     func showUpcomingMovies(data: [UpcomingMoviesModel]?) {
         self.data = data ?? []
         self.tableView.reloadData()

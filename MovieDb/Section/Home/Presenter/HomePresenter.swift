@@ -28,8 +28,12 @@ class HomePresenter: ViewToPresenterProtocol {
         interactor?.startFechingPopularMovie()
     }
     
-    func showMovieController(navigationController: UINavigationController) {
-        
+    func startFechingGenres() {
+        interactor?.startFechingGenres()
+    }
+    
+    func showMovieController(navigationController: UINavigationController, menuEnum: HomeEnumSection) {
+        router?.showMovieController(navigationController: navigationController, menuEnum: menuEnum)
     }
 }
 
@@ -52,5 +56,9 @@ extension HomePresenter: InteractorToPresenterProtocol {
     
     func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
         view?.showPopularMoviesData(data: data)
+    }
+    
+    func showGenreMovie(data: [MovieGenresModel]?) {
+        view?.showGenreMovie(data: data)
     }
 }

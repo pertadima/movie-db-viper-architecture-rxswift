@@ -24,4 +24,8 @@ class HomeRouter: PresenterToRouterProtocol {
         interactor.presenter = presenter
         return controller
     }
+    
+    func showMovieController(navigationController: UINavigationController,  menuEnum: HomeEnumSection) {
+        
+    }
 }

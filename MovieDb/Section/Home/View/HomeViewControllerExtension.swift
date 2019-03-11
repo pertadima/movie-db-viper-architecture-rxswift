@@ -26,6 +26,8 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
             return 1
         case .popularMovie:
             return dataPopularMovie.count
+        case .genreMovie:
+            return 1
         default:
             return 0
         }
@@ -44,6 +46,10 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         case .popularMovie:
             let cell = HomePopularMovieTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: HomePopularMovieTableViewCell.identifier)
             cell.configureCell(data: dataPopularMovie[indexPath.row])
+            return cell
+        case .genreMovie:
+            let cell = HomeGenreMovieTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: HomeGenreMovieTableViewCell.identifier)
+            cell.configureData(data: dataGenre)
             return cell
         default:
             return UITableViewCell()
