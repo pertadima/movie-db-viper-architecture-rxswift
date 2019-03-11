@@ -11,6 +11,8 @@ import SnapKit
 
 class HomeNowPlayingTableViewCell : BaseTableViewCell {
     var data: [UpcomingMoviesModel] = []
+    var timer : Timer?
+    var index = 0
     
     private lazy var collectionView : UICollectionView = {
         let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .horizontal, isEstimatedItemSize: false)
@@ -48,8 +50,25 @@ class HomeNowPlayingTableViewCell : BaseTableViewCell {
     }
     
     func configureData(data: [UpcomingMoviesModel]?) {
+        index = 0
         self.data = data ?? []
         collectionView.reloadData()
+        addTimer()
+    }
+    
+    private func addTimer() {
+        let timer1 = Timer(timeInterval: 2, target: self, selector: #selector(handleTimer), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer1, forMode: RunLoop.Mode.common)
+        self.timer = timer1
+    }
+    
+    @objc private func handleTimer(){
+        if data.count != 0 {
+            index += 1
+            index = index < self.data.count ? index : 0
+            let indexPath = IndexPath(row: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
     }
 }
 
@@ -86,6 +105,7 @@ extension HomeNowPlayingTableViewCell: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
+    
 }
 
 
