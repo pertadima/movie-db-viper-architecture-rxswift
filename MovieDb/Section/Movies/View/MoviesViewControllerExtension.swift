@@ -9,8 +9,8 @@
 import UIKit
 extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,  withReuseIdentifier: "header", for: indexPath) as! MoviesHeaderCollectionView
-        headerView.configureHeader(data: data)
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,  withReuseIdentifier: "header", for: indexPath) as! MoviesHeaderCollectionView
+        headerView.configureHeader(data: dataList.count, dataTotal: data?.totalResults ?? 0)
         return headerView
     }
     
@@ -49,7 +49,7 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
-            if indexPath.item == (self.dataList.count ?? 0) - 2 && self.currentPage < self.totalPage {
+            if indexPath.item == self.dataList.count - 2 && self.currentPage < self.totalPage {
                 self.currentPage += 1
                 presentor?.startFechingPlayingNowMoviePaging(page: currentPage)
             }

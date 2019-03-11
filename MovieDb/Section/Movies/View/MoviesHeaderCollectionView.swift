@@ -44,7 +44,7 @@ class MoviesHeaderCollectionView: UICollectionReusableView {
         }
     }
     
-    func configureHeader(data: UpComingMoviesResponse?) {
-        label.text = "Showing \(data?.results?.count ?? 0) from \(data?.totalResults ?? 0) Movies"
+    func configureHeader(data: Int?, dataTotal: Int?) {
+        label.text = "Showing \(data ?? 0) from \(dataTotal ?? 0) Movies"
     }
 }

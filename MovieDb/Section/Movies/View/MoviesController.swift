@@ -109,6 +109,7 @@ extension MoviesController: MoviesPresenterToViewProtocol {
     
     func showUpcomingMovies(data: UpComingMoviesResponse?) {
         self.dataList.removeAll()
+        self.beginIndex = 0
         self.data = data
         self.dataList = data?.results ?? []
         self.totalPage = data?.totalPages ?? 1
@@ -127,6 +128,7 @@ extension MoviesController: MoviesPresenterToViewProtocol {
     
     func showPopularMoviesData(data: UpComingMoviesResponse?) {
         self.dataList.removeAll()
+        self.beginIndex = 0
         self.data = data
         self.dataList = data?.results ?? []
         self.totalPage = data?.totalPages ?? 1
@@ -145,6 +147,7 @@ extension MoviesController: MoviesPresenterToViewProtocol {
     
     func showNowPlayingMovie(data: UpComingMoviesResponse?) {
         self.dataList.removeAll()
+        self.beginIndex = 0
         self.data = data
         self.dataList = data?.results ?? []
         self.totalPage = data?.totalPages ?? 1
