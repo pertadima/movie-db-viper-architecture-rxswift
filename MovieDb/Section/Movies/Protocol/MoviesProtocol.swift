@@ -18,8 +18,8 @@ protocol MoviesViewToPresenterProtocol: class {
 }
 
 protocol MoviesPresenterToViewProtocol: class {
-    func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
-    func showPopularMoviesData(data: [UpcomingMoviesModel]?)
+    func showNowPlayingMovie(data: UpComingMoviesResponse?)
+    func showPopularMoviesData(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }
@@ -35,8 +35,8 @@ protocol MoviesPresenterToInteratorProtocol: class {
 }
 
 protocol MoviesInteratorToPresenterProtocol: class {
-    func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
-    func showPopularMoviesData(data: [UpcomingMoviesModel]?)
+    func showNowPlayingMovie(data: UpComingMoviesResponse?)
+    func showPopularMoviesData(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }

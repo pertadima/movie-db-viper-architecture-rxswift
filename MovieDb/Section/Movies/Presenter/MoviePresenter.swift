@@ -26,11 +26,11 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {
-    func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
+    func showPopularMoviesData(data: UpComingMoviesResponse?) {
         view?.showPopularMoviesData(data: data)
     }
     
-    func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
+    func showNowPlayingMovie(data: UpComingMoviesResponse?) {
         view?.showNowPlayingMovie(data: data)
     }
     

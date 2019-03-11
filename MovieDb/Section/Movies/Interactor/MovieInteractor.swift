@@ -24,7 +24,7 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showNowPlayingMovie(data: tasks.results)
+                self.presenter?.showNowPlayingMovie(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)
@@ -38,7 +38,7 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showPopularMoviesData(data: tasks.results)
+                self.presenter?.showPopularMoviesData(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)

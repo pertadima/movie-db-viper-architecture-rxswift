@@ -8,6 +8,9 @@
 
 struct UpComingMoviesResponse : Codable{
     var results: [UpcomingMoviesModel]?
+    var pages: Int?
+    var totalResults: Int?
+    var totalPages: Int?
 }
 
 struct UpcomingMoviesModel : Codable{
