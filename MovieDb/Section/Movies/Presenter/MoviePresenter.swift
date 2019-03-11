@@ -19,9 +19,17 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
     func startFechingPlayingNowMovie() {
         interactor?.startFechingPlayingNowMovie()
     }
+    
+    func startFechingPopularMovie() {
+        interactor?.startFechingPlayingNowMovie()
+    }
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
+        view?.showPopularMoviesData(data: data)
+    }
+    
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
         view?.showNowPlayingMovie(data: data)
     }

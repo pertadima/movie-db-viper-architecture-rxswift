@@ -33,6 +33,10 @@ class HomeRouter: PresenterToRouterProtocol {
              movieModule.presentor?.startFechingPlayingNowMovie()
         }
         
+        if menuEnum == .popularMovie {
+            movieModule.presentor?.startFechingPopularMovie()
+        }
+        
         navigationController.pushViewController(movieModule, animated: true)
     }
 }

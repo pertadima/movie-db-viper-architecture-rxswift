@@ -67,6 +67,11 @@ class MoviesController: UIViewController {
 }
 
 extension MoviesController: MoviesPresenterToViewProtocol {
+    func showPopularMoviesData(data: [UpcomingMoviesModel]?) {
+        self.data = data ?? []
+        collectionView.reloadData()
+    }
+    
     func showNowPlayingMovie(data: [UpcomingMoviesModel]?) {
         self.data = data ?? []
         collectionView.reloadData()
