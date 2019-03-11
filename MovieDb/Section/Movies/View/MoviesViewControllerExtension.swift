@@ -24,7 +24,7 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(MoviesCollectionViewCell.self), for: indexPath) as? MoviesCollectionViewCell {
-            cell.configureCell(data: dataList[indexPath.item])
+            cell.configureCell(data: dataList[indexPath.row])
             return cell
         }
         return UICollectionViewCell()
@@ -49,7 +49,7 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
-            if indexPath.item == self.dataList.count - 2 && self.currentPage < self.totalPage {
+            if indexPath.row == self.dataList.count - 1 && self.currentPage < self.totalPage {
                 self.currentPage += 1
                 presentor?.startFechingPlayingNowMoviePaging(page: currentPage)
             }

@@ -108,44 +108,18 @@ extension MoviesController: MoviesPresenterToViewProtocol {
     }
     
     func showUpcomingMovies(data: UpComingMoviesResponse?) {
-        self.dataList.removeAll()
-        self.beginIndex = 0
-        self.data = data
-        self.dataList = data?.results ?? []
-        self.totalPage = data?.totalPages ?? 1
-        self.currentPage = data?.pages ?? 1
-        
-        self.collectionView.performBatchUpdates({
-            var indexPathsCollection: [IndexPath] = []
-            if self.beginIndex < self.dataList.count - 1 {
-                for i in beginIndex...self.dataList.count - 1 {
-                    indexPathsCollection.append(IndexPath(item: i, section: 0))
-                }
-                self.collectionView.insertItems(at: indexPathsCollection)
-            }
-        }, completion: nil)
+        updateData(data: data)
     }
     
     func showPopularMoviesData(data: UpComingMoviesResponse?) {
-        self.dataList.removeAll()
-        self.beginIndex = 0
-        self.data = data
-        self.dataList = data?.results ?? []
-        self.totalPage = data?.totalPages ?? 1
-        self.currentPage = data?.pages ?? 1
-        
-        self.collectionView.performBatchUpdates({
-            var indexPathsCollection: [IndexPath] = []
-            if self.beginIndex < self.dataList.count - 1 {
-                for i in beginIndex...self.dataList.count - 1 {
-                    indexPathsCollection.append(IndexPath(item: i, section: 0))
-                }
-                self.collectionView.insertItems(at: indexPathsCollection)
-            }
-        }, completion: nil)
+        updateData(data: data)
     }
     
     func showNowPlayingMovie(data: UpComingMoviesResponse?) {
+        updateData(data: data)
+    }
+    
+    private func updateData(data: UpComingMoviesResponse?) {
         self.dataList.removeAll()
         self.beginIndex = 0
         self.data = data
