@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class HomeViewController: UIViewController {
     var presentor:ViewToPresenterProtocol?
@@ -16,6 +17,8 @@ class HomeViewController: UIViewController {
     var dataPopularMovie: [UpcomingMoviesModel] = []
     var dataGenre: [MovieGenresModel] = []
     var dotIndicator: DotIndicatorView?
+    let tapGesture = UITapGestureRecognizer()
+    let disposeBag = DisposeBag()
     
     internal let menuSection : [HomeEnumSection] = [.nowPlaying, .popularMovie, .genreMovie, .upComingMovie]
     

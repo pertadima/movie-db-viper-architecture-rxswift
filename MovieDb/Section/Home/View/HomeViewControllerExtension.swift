@@ -8,9 +8,13 @@
 import UIKit
 
 extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = HeaderTitleTableViewCell(frame: .zero)
         headerView.label.text = menuSection[section].title
+        headerView.labelAll.isHidden = menuSection[section] == .genreMovie ? true : false
+        headerView.labelAll.tag = section
+        onClickButton(view: headerView.labelAll)
         return headerView
     }
     
@@ -57,6 +61,18 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    }
+    
+    private func onClickButton(view: UIView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapFunction(sender: UITapGestureRecognizer) {
+        let index = sender.view?.tag
+        presentor?.showMovieController(navigationController: navigationController ?? UINavigationController(), menuEnum: menuSection[index ?? 0])
     }
 }

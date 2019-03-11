@@ -12,7 +12,11 @@ import SnapKit
 class HeaderTitleTableViewCell : UIView {
     let label = addComponent.label(id: "title", type: .roboto_medium, text: "A", size: 16, addColor: .black, align: .left)
     
-    let labelAll = addComponent.label(id: "title", type: .roboto_regular, text: "See All", size: 12, addColor: .textGray, align: .left)
+    let labelAll : UILabel = {
+        let label = addComponent.label(id: "title", type: .roboto_regular, text: "See All", size: 12, addColor: .textGray, align: .left)
+        label.isUserInteractionEnabled = true
+        return label
+    }()
     let headerContainer = addComponent.view(addColor: .white)
     
     override init(frame: CGRect) {

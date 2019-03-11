@@ -84,7 +84,6 @@ extension HomeNowPlayingTableViewCell: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(HomeNowPlayingMoviesCollectionViewCell.self), for: indexPath) as? HomeNowPlayingMoviesCollectionViewCell {
             cell.configureCell(data: data[indexPath.row])
-            cell.animateCell()
             return cell
         }
         return UICollectionViewCell()

@@ -26,6 +26,13 @@ class HomeRouter: PresenterToRouterProtocol {
     }
     
     func showMovieController(navigationController: UINavigationController,  menuEnum: HomeEnumSection) {
+        let movieModule = MovieRouter.createModule()
+        movieModule.title = menuEnum.title
+
+        if menuEnum == .nowPlaying {
+             movieModule.presentor?.startFechingPlayingNowMovie()
+        }
         
+        navigationController.pushViewController(movieModule, animated: true)
     }
 }

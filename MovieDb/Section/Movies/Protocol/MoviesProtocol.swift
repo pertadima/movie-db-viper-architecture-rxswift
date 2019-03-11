@@ -9,10 +9,31 @@
 import Foundation
 import UIKit
 
-protocol MoviesViewToPresenter: class {
-    
+protocol MoviesViewToPresenterProtocol: class {
+    var view: MoviesPresenterToViewProtocol? {get set}
+    var interactor: MoviesPresenterToInteratorProtocol? {get set}
+    var router: MoviesPresenterToRouterProtocol? {get set}
+    func startFechingPlayingNowMovie()
 }
 
 protocol MoviesPresenterToViewProtocol: class {
-    
+    func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
+    func fetchFailed(error: String)
+    func isLoading(isLoading: Bool)
 }
+
+protocol MoviesPresenterToRouterProtocol: class {
+    static func createModule()-> MoviesController
+}
+
+protocol MoviesPresenterToInteratorProtocol: class {
+    var presenter:MoviesInteratorToPresenterProtocol? {get set}
+    func startFechingPlayingNowMovie()
+}
+
+protocol MoviesInteratorToPresenterProtocol: class {
+    func showNowPlayingMovie(data: [UpcomingMoviesModel]?)
+    func fetchFailed(error: String)
+    func isLoading(isLoading: Bool)
+}
+
