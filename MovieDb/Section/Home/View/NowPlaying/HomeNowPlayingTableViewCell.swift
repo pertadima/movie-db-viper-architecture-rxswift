@@ -106,6 +106,9 @@ extension HomeNowPlayingTableViewCell: UICollectionViewDataSource, UICollectionV
         return 10
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        index = Int(self.collectionView.contentOffset.x / 200)
+    }
 }
 
 
