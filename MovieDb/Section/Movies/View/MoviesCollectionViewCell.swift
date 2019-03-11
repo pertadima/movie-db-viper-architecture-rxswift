@@ -1,16 +1,15 @@
 //
-//  HomeNowPlayingMoviesCollectionViewCell.swift
+//  MoviesCollectionViewCell.swift
 //  MovieDb
 //
-//  Created by Irfan Pertadima on 3/10/19.
+//  Created by Irfan Pertadima on 3/11/19.
 //  Copyright © 2019 Irfan Pertadima. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
-   
+class MoviesCollectionViewCell: BaseCollectionViewCell {
     private let image : CustomImageView = {
         let image = addComponent.customImage(rounded: 5)
         image.backgroundColor = AppColor.lineGray.color
@@ -41,7 +40,7 @@ class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
-            make.height.equalTo(250)
+            make.height.equalTo(230)
         }
         
         movieTitle.snp.makeConstraints{(make) in
@@ -62,7 +61,6 @@ class HomeNowPlayingMoviesCollectionViewCell: BaseCollectionViewCell {
             make.left.equalTo(star.snp_rightMargin).offset(10)
         }
     }
-    
     
     func configureCell(data: UpcomingMoviesModel?) {
         if let imageData = data?.posterPath {
