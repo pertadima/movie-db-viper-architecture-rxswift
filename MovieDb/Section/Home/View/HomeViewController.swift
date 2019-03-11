@@ -17,8 +17,6 @@ class HomeViewController: UIViewController {
     var dataPopularMovie: [UpcomingMoviesModel] = []
     var dataGenre: [MovieGenresModel] = []
     var dotIndicator: DotIndicatorView?
-    let tapGesture = UITapGestureRecognizer()
-    let disposeBag = DisposeBag()
     
     internal let menuSection : [HomeEnumSection] = [.nowPlaying, .popularMovie, .genreMovie, .upComingMovie]
     
