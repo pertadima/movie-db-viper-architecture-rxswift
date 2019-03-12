@@ -54,8 +54,6 @@ class MoviesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addBackgroundColor(addColor: .white)
-        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-        statusBar.backgroundColor = AppColor.white.color
         view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
         setConstraintView()

@@ -17,6 +17,7 @@ enum NetworkService {
     case nowPlayingMoviePaging(page: Int)
     case trendingMoviePaging(page: Int)
     case upComingMoviePaging(page: Int)
+    case detailMovie(id: Int)
 }
 
 extension NetworkService : TargetType {
@@ -36,6 +37,8 @@ extension NetworkService : TargetType {
             return "movie/now_playing"
         case .popularMovie:
             return "movie/popular"
+        case .detailMovie(id: let id):
+            return "movie/\(id)"
         }
     }
     
@@ -49,7 +52,7 @@ extension NetworkService : TargetType {
     
     public var task: Task {
         switch self {
-        case .genreMovie, .upComingMovie, .nowPlaying, .popularMovie:
+        case .genreMovie, .upComingMovie, .nowPlaying, .popularMovie, .detailMovie:
             return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71"], encoding: URLEncoding.default)
         case .nowPlayingMoviePaging(page: let paging), .trendingMoviePaging(page: let paging), .upComingMoviePaging(page: let paging):
             return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71", "page": paging], encoding: URLEncoding.default)

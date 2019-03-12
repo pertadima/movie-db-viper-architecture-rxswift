@@ -13,6 +13,8 @@ class HomeNowPlayingTableViewCell : BaseTableViewCell {
     var data: [UpcomingMoviesModel] = []
     var timer : Timer?
     var index = 0
+    var presentor:ViewToPresenterProtocol?
+    var navigationController: UINavigationController?
     
     private lazy var collectionView : UICollectionView = {
         let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .horizontal, isEstimatedItemSize: false)
@@ -87,6 +89,10 @@ extension HomeNowPlayingTableViewCell: UICollectionViewDataSource, UICollectionV
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presentor?.showDetailMovieController(navigationController: self.navigationController ?? UINavigationController(), movie: data[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

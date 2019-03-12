@@ -27,7 +27,8 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
@@ -41,7 +42,8 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
@@ -55,7 +57,8 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
@@ -69,7 +72,8 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self.presenter?.onSuccessPaging(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }

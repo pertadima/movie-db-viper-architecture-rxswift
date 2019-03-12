@@ -43,4 +43,10 @@ class HomeRouter: PresenterToRouterProtocol {
         
         navigationController.pushViewController(movieModule, animated: true)
     }
+    
+    func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
+        let detailModule = DetailMovieRouter.createModule()
+        detailModule.presentor?.startFechingDetailMovie(id: movie?.id ?? 0)
+        navigationController.pushViewController(detailModule, animated: true)
+    }
 }

@@ -41,10 +41,14 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         switch menuSection[indexPath.section] {
         case .nowPlaying:
             let cell = HomeNowPlayingTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: HomeNowPlayingTableViewCell.identifier)
+            cell.presentor = self.presentor
+            cell.navigationController = self.navigationController
             cell.configureData(data: dataPlayingNow)
             return cell
         case .upComingMovie:
             let cell = HomeUpcomingMovieTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: HomeUpcomingMovieTableViewCell.identifier)
+            cell.presentor = self.presentor
+            cell.navigationController = self.navigationController
             cell.configureData(data: data)
             return cell
         case .popularMovie:
@@ -61,6 +65,12 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch menuSection[indexPath.section] {
+        case .popularMovie:
+            presentor?.showDetailMovieController(navigationController: navigationController ?? UINavigationController(), movie: dataPopularMovie[indexPath.row])
+        default:
+            break
+        }
     }
     
     private func onClickButton(view: UIView) {

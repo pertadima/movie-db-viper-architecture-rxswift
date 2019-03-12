@@ -5,8 +5,6 @@
 //  Created by Irfan Pertadima on 3/11/19.
 //  Copyright © 2019 Irfan Pertadima. All rights reserved.
 //
-
-import Foundation
 import RxSwift
 
 class MoviePresenter: MoviesViewToPresenterProtocol {
@@ -31,6 +29,11 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
     func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection) {
         interactor?.startFetchingMoviesPaging(page: page, enumData: enumData)
     }
+    
+    func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
+        router?.showDetailMovieController(navigationController: navigationController, movie: movie)
+    }
+    
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {

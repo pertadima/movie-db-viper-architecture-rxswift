@@ -58,8 +58,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-        statusBar.backgroundColor = AppColor.white.color
         view.addBackgroundColor(addColor: .white)
         view.addSubview(tableView)
         tableView.addSubview(refreshControl)

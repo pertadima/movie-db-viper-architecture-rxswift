@@ -5,8 +5,6 @@
 //  Created by Irfan Pertadima on 3/11/19.
 //  Copyright © 2019 Irfan Pertadima. All rights reserved.
 //
-
-import Foundation
 import UIKit
 
 class MovieRouter: MoviesPresenterToRouterProtocol {
@@ -23,5 +21,11 @@ class MovieRouter: MoviesPresenterToRouterProtocol {
         presenter.interactor = interactor
         interactor.presenter = presenter
         return controller
+    }
+    
+    func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
+            let detailModule = DetailMovieRouter.createModule()
+            detailModule.presentor?.startFechingDetailMovie(id: movie?.id ?? 0)
+            navigationController.pushViewController(detailModule, animated: true)
     }
 }

@@ -25,9 +25,14 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String.className(MoviesCollectionViewCell.self), for: indexPath) as? MoviesCollectionViewCell {
             cell.configureCell(data: dataList[indexPath.row])
+            cell.animateCell()
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presentor?.showDetailMovieController(navigationController: self.navigationController ?? UINavigationController(), movie: dataList[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

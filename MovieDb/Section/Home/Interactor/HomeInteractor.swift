@@ -23,12 +23,13 @@ class HomeInteractor : PresenterToInteractorProtocol {
         service.fetchUpcomingMovie()
         .observeOn(MainScheduler.instance)
         .subscribe(onSuccess: { [weak self] tasks in
-            guard let `self` = self, let tasks = tasks else { return }
-            self.presenter?.fetchedUpcomingMoviesSuccess(data: tasks.results)
-            self.presenter?.isLoading(isLoading: false)
+                guard let `self` = self, let tasks = tasks else { return }
+                self.presenter?.fetchedUpcomingMoviesSuccess(data: tasks.results)
+                self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
-            self?.presenter?.isLoading(isLoading: false)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
+                self?.presenter?.isLoading(isLoading: false)
         }.disposed(by: disposeBag)
     }
     
@@ -41,7 +42,8 @@ class HomeInteractor : PresenterToInteractorProtocol {
                 self.presenter?.showNowPlayingMovie(data: tasks.results)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
@@ -55,7 +57,8 @@ class HomeInteractor : PresenterToInteractorProtocol {
                 self.presenter?.showPopularMoviesData(data: tasks.results)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
@@ -69,7 +72,8 @@ class HomeInteractor : PresenterToInteractorProtocol {
                 self.presenter?.showGenreMovie(data: tasks.genres)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
-                self?.presenter?.fetchFailed(error: error.localizedDescription)
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }

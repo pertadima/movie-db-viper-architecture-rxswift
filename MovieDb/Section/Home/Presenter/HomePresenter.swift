@@ -35,6 +35,10 @@ class HomePresenter: ViewToPresenterProtocol {
     func showMovieController(navigationController: UINavigationController, menuEnum: HomeEnumSection) {
         router?.showMovieController(navigationController: navigationController, menuEnum: menuEnum)
     }
+    
+    func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
+        router?.showDetailMovieController(navigationController: navigationController, movie: movie)
+    }
 }
 
 extension HomePresenter: InteractorToPresenterProtocol {
