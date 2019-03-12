@@ -24,7 +24,7 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showNowPlayingMovie(data: tasks)
+                self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)
@@ -38,7 +38,7 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showPopularMoviesData(data: tasks)
+                self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)
@@ -52,7 +52,7 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showUpcomingMovies(data: tasks)
+                self.presenter?.onSuccess(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)
@@ -60,13 +60,13 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
             }.disposed(by: disposeBag)
     }
     
-    func startFechingPlayingNowMoviePaging(page: Int) {
+    func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection) {
         presenter?.isLoading(isLoading: true)
-        service.fetchPlayingNowMoviePaging(page: page)
+        service.fetchMoviesPaging(page: page, enumData: enumData)
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] tasks in
                 guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showNowPlayingMoviePaging(data: tasks)
+                self.presenter?.onSuccessPaging(data: tasks)
                 self.presenter?.isLoading(isLoading: false)
             }) { [weak self] error in
                 self?.presenter?.fetchFailed(error: error.localizedDescription)

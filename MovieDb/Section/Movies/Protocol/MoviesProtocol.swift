@@ -16,14 +16,12 @@ protocol MoviesViewToPresenterProtocol: class {
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
     func startFetchingUpcomingMovie()
-    func startFechingPlayingNowMoviePaging(page: Int)
+    func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection)
 }
 
 protocol MoviesPresenterToViewProtocol: class {
-    func showNowPlayingMovie(data: UpComingMoviesResponse?)
-    func showPopularMoviesData(data: UpComingMoviesResponse?)
-    func showUpcomingMovies(data: UpComingMoviesResponse?)
-    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?)
+    func onSuccess(data: UpComingMoviesResponse?)
+    func onSuccessPaging(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }
@@ -37,15 +35,13 @@ protocol MoviesPresenterToInteratorProtocol: class {
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
     func startFetchingUpcomingMovie()
-    func startFechingPlayingNowMoviePaging(page: Int)
+    func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection)
 }
 
 protocol MoviesInteratorToPresenterProtocol: class {
-    func showNowPlayingMovie(data: UpComingMoviesResponse?)
-    func showPopularMoviesData(data: UpComingMoviesResponse?)
-    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?)
+    func onSuccess(data: UpComingMoviesResponse?)
+    func onSuccessPaging(data: UpComingMoviesResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
-    func showUpcomingMovies(data: UpComingMoviesResponse?)
 }
 

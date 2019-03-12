@@ -21,33 +21,25 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
     }
     
     func startFechingPopularMovie() {
-        interactor?.startFechingPlayingNowMovie()
+        interactor?.startFechingPopularMovie()
     }
     
     func startFetchingUpcomingMovie() {
         interactor?.startFetchingUpcomingMovie()
     }
     
-    func startFechingPlayingNowMoviePaging(page: Int) {
-        interactor?.startFechingPlayingNowMoviePaging(page: page)
+    func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection) {
+        interactor?.startFetchingMoviesPaging(page: page, enumData: enumData)
     }
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {
-    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?) {
-        view?.showNowPlayingMoviePaging(data: data)
+    func onSuccess(data: UpComingMoviesResponse?) {
+        view?.onSuccess(data: data)
     }
     
-    func showUpcomingMovies(data: UpComingMoviesResponse?) {
-        view?.showUpcomingMovies(data: data)
-    }
-    
-    func showPopularMoviesData(data: UpComingMoviesResponse?) {
-        view?.showPopularMoviesData(data: data)
-    }
-    
-    func showNowPlayingMovie(data: UpComingMoviesResponse?) {
-        view?.showNowPlayingMovie(data: data)
+    func onSuccessPaging(data: UpComingMoviesResponse?) {
+        view?.onSuccessPaging(data: data)
     }
     
     func fetchFailed(error: String) {

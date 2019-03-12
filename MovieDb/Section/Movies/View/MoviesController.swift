@@ -90,7 +90,15 @@ class MoviesController: UIViewController {
 }
 
 extension MoviesController: MoviesPresenterToViewProtocol {
-    func showNowPlayingMoviePaging(data: UpComingMoviesResponse?) {
+    func onSuccess(data: UpComingMoviesResponse?) {
+        updateData(data: data)
+    }
+    
+    func onSuccessPaging(data: UpComingMoviesResponse?) {
+       updateDataPaging(data: data)
+    }
+    
+    private func updateDataPaging(data: UpComingMoviesResponse?) {
         self.data = data
         self.beginIndex = dataList.count
         self.totalPage = data?.totalPages ?? 1
@@ -107,18 +115,6 @@ extension MoviesController: MoviesPresenterToViewProtocol {
         }, completion: nil)
     }
     
-    func showUpcomingMovies(data: UpComingMoviesResponse?) {
-        updateData(data: data)
-    }
-    
-    func showPopularMoviesData(data: UpComingMoviesResponse?) {
-        updateData(data: data)
-    }
-    
-    func showNowPlayingMovie(data: UpComingMoviesResponse?) {
-        updateData(data: data)
-    }
-    
     private func updateData(data: UpComingMoviesResponse?) {
         self.dataList.removeAll()
         self.beginIndex = 0
@@ -126,16 +122,7 @@ extension MoviesController: MoviesPresenterToViewProtocol {
         self.dataList = data?.results ?? []
         self.totalPage = data?.totalPages ?? 1
         self.currentPage = data?.pages ?? 1
-        
-        self.collectionView.performBatchUpdates({
-            var indexPathsCollection: [IndexPath] = []
-            if self.beginIndex < self.dataList.count - 1 {
-                for i in beginIndex...self.dataList.count - 1 {
-                    indexPathsCollection.append(IndexPath(item: i, section: 0))
-                }
-                self.collectionView.insertItems(at: indexPathsCollection)
-            }
-        }, completion: nil)
+        self.collectionView.reloadData()
     }
     
     func fetchFailed(error: String) {
