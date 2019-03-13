@@ -60,7 +60,7 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
                 case .nowPlaying?, .popularMovie?, .upComingMovie?:
                     presentor?.startFetchingMoviesPaging(page: currentPage, enumData: menuEnum ?? .nowPlaying)
                 default:
-                    break
+                    presentor?.startFetchingMovieByGenrePaging(genre: genre ?? MovieGenresModel(), page: currentPage)
                 }
             }
         }

@@ -19,6 +19,7 @@ enum NetworkService {
     case upComingMoviePaging(page: Int)
     case detailMovie(id: Int)
     case movieByGenres(genre: String)
+    case movieByGenresPaging(genre: String, page: Int)
 }
 
 extension NetworkService : TargetType {
@@ -40,7 +41,7 @@ extension NetworkService : TargetType {
             return "movie/popular"
         case .detailMovie(id: let id):
             return "movie/\(id)"
-        case .movieByGenres:
+        case .movieByGenres, .movieByGenresPaging:
             return "discover/movie"
         }
     }
@@ -61,6 +62,8 @@ extension NetworkService : TargetType {
             return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71", "page": paging], encoding: URLEncoding.default)
         case .movieByGenres(genre: let genre):
             return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71","with_genres": genre], encoding: URLEncoding.default)
+        case .movieByGenresPaging(genre: let genre, page: let paging):
+            return .requestParameters(parameters: ["api_key": "c8ff8c510e74a75a3643870242745d71","with_genres": genre,"page": paging], encoding: URLEncoding.default)
         default:
             return .requestPlain
         }

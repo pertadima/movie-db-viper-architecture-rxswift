@@ -92,4 +92,19 @@ class MovieInteractor: MoviesPresenterToInteratorProtocol {
                 self?.presenter?.isLoading(isLoading: false)
             }.disposed(by: disposeBag)
     }
+    
+    func startFetchingMovieByGenrePaging(genre: MovieGenresModel, page: Int) {
+        presenter?.isLoading(isLoading: true)
+        service.fetchMoviesByGenrePaging(page: page, genre: "\(genre.id ?? 0)")
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] tasks in
+                guard let `self` = self, let tasks = tasks else { return }
+                self.presenter?.onSuccessPaging(data: tasks)
+                self.presenter?.isLoading(isLoading: false)
+            }) { [weak self] error in
+                guard let errorValue = error as? APIError else { return }
+                self?.presenter?.fetchFailed(error: errorValue.message)
+                self?.presenter?.isLoading(isLoading: false)
+            }.disposed(by: disposeBag)
+    }
 }

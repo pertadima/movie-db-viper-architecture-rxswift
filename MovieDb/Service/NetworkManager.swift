@@ -18,6 +18,7 @@ protocol FetchApiServices {
     func fetchDetailMovie(id: Int) ->  Single<DetailMoviesResponse?>
     func fetchMoviesPaging(page: Int, enumData: HomeEnumSection) -> Single<UpComingMoviesResponse?>
     func fetchMoviesByGenre(genre: String) ->  Single<UpComingMoviesResponse?>
+    func fetchMoviesByGenrePaging(page: Int, genre: String) -> Single<UpComingMoviesResponse?>
 }
 
 final class NetworkManager: FetchApiServices {
@@ -74,7 +75,11 @@ final class NetworkManager: FetchApiServices {
     }
     
     func fetchMoviesByGenre(genre: String) -> Single<UpComingMoviesResponse?> {
-         return request(networkService: .movieByGenres(genre: genre))
+        return request(networkService: .movieByGenres(genre: genre))
+    }
+    
+    func fetchMoviesByGenrePaging(page: Int, genre: String) -> Single<UpComingMoviesResponse?> {
+        return request(networkService: .movieByGenresPaging(genre: genre, page: page))
     }
 }
 

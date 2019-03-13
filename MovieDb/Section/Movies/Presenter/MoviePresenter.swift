@@ -38,6 +38,10 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
         router?.showDetailMovieController(navigationController: navigationController, movie: movie)
     }
     
+    func startFetchingMovieByGenrePaging(genre: MovieGenresModel, page: Int) {
+        interactor?.startFetchingMovieByGenrePaging(genre: genre, page: page)
+    }
+    
 }
 
 extension MoviePresenter: MoviesInteratorToPresenterProtocol {

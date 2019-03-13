@@ -29,6 +29,7 @@ class HomeRouter: PresenterToRouterProtocol {
         let movieModule = MovieRouter.createModule()
         movieModule.title = menuEnum.title
         movieModule.menuEnum = menuEnum
+        movieModule.genre = nil
         navigationController.pushViewController(movieModule, animated: true)
     }
     
