@@ -30,6 +30,10 @@ class MoviePresenter: MoviesViewToPresenterProtocol {
         interactor?.startFetchingMoviesPaging(page: page, enumData: enumData)
     }
     
+    func startFetchingMovieByGenre(genre: MovieGenresModel) {
+        interactor?.startFetchingMovieByGenre(genre: genre)
+    }
+    
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
         router?.showDetailMovieController(navigationController: navigationController, movie: movie)
     }

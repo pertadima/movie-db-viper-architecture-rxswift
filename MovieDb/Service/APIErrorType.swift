@@ -6,8 +6,6 @@
 //  Copyright © 2019 Irfan Pertadima. All rights reserved.
 //
 
-import Foundation
-
 enum APIErrorType: Int, Error {
     /// Status code 400
     case badRequest = 400

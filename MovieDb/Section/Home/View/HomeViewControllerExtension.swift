@@ -57,6 +57,8 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
             return cell
         case .genreMovie:
             let cell = HomeGenreMovieTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: HomeGenreMovieTableViewCell.identifier)
+            cell.presentor = self.presentor
+            cell.navigationController = self.navigationController
             cell.configureData(data: dataGenre)
             return cell
         default:

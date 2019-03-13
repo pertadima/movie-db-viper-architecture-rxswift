@@ -11,6 +11,9 @@ import SnapKit
 
 class HomeGenreMovieTableViewCell: BaseTableViewCell {
     var data: [MovieGenresModel] = []
+    var presentor:ViewToPresenterProtocol?
+    var detailMoviePresenter: DetailMoviesVoiewToPresenterProcol?
+    var navigationController: UINavigationController?
     
     private lazy var collectionView : UICollectionView = {
         let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .horizontal, isEstimatedItemSize: false)
@@ -68,6 +71,16 @@ extension HomeGenreMovieTableViewCell: UICollectionViewDataSource, UICollectionV
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if presentor != nil {
+            presentor?.showMovieController(navigationController: navigationController ?? UINavigationController(), genres: data[indexPath.row])
+        }
+        
+        if detailMoviePresenter != nil {
+            detailMoviePresenter?.showMovieController(navigationController: navigationController ?? UINavigationController(), genres: data[indexPath.row])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

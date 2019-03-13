@@ -22,6 +22,7 @@ public class CustomImageView: UIImageView {
         self.contentMode = contentMode
         if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
             self.image = imageFromCache
+            self.clipsToBounds = true
             self.contentMode = contentMode
             return
         }
@@ -43,6 +44,7 @@ public class CustomImageView: UIImageView {
                         self.contentMode = contentMode
                         self.clipsToBounds = true
                         imageCache.setObject(imageToCache, forKey: urlString as NSString)
+                        self.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin, .flexibleRightMargin, .flexibleLeftMargin, .flexibleTopMargin]
                         completion(true)
                     }else{
                         completion(false)

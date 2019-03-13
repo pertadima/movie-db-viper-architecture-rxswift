@@ -29,24 +29,19 @@ class HomeRouter: PresenterToRouterProtocol {
         let movieModule = MovieRouter.createModule()
         movieModule.title = menuEnum.title
         movieModule.menuEnum = menuEnum
-        if menuEnum == .nowPlaying {
-             movieModule.presentor?.startFechingPlayingNowMovie()
-        }
-        
-        if menuEnum == .popularMovie {
-            movieModule.presentor?.startFechingPopularMovie()
-        }
-        
-        if menuEnum == .upComingMovie {
-            movieModule.presentor?.startFetchingUpcomingMovie()
-        }
-        
+        navigationController.pushViewController(movieModule, animated: true)
+    }
+    
+    func showMovieController(navigationController: UINavigationController, genres: MovieGenresModel?) {
+        let movieModule = MovieRouter.createModule()
+        movieModule.title = genres?.name ?? ""
+        movieModule.genre = genres
         navigationController.pushViewController(movieModule, animated: true)
     }
     
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
         let detailModule = DetailMovieRouter.createModule()
-        detailModule.presentor?.startFechingDetailMovie(id: movie?.id ?? 0)
+        detailModule.movie = movie
         navigationController.pushViewController(detailModule, animated: true)
     }
 }

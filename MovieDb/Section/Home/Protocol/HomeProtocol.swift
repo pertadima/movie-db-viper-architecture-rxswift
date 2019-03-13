@@ -19,6 +19,7 @@ protocol ViewToPresenterProtocol: class{
     func startFechingPopularMovie()
     func startFechingGenres()
     func showMovieController(navigationController:UINavigationController, menuEnum: HomeEnumSection)
+    func showMovieController(navigationController:UINavigationController, genres: MovieGenresModel?)
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?)
 }
 
@@ -34,6 +35,7 @@ protocol PresenterToViewProtocol: class{
 protocol PresenterToRouterProtocol: class {
     static func createModule()-> HomeViewController
     func showMovieController(navigationController:UINavigationController, menuEnum: HomeEnumSection)
+    func showMovieController(navigationController:UINavigationController, genres: MovieGenresModel?)
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?)
 }
 

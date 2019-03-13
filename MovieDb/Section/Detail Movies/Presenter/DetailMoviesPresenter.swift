@@ -18,6 +18,10 @@ class DetailMoviesPresenter: DetailMoviesVoiewToPresenterProcol {
     func startFechingDetailMovie(id: Int) {
         interactor?.startFechingDetailMovie(id: id)
     }
+    
+    func showMovieController(navigationController: UINavigationController, genres: MovieGenresModel?) {
+        router?.showMovieController(navigationController: navigationController, genres: genres)
+    }
 }
 
 extension DetailMoviesPresenter: DetailMoviesInteractorToPresenterProtocol {

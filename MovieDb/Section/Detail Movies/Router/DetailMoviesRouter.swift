@@ -24,4 +24,11 @@ class DetailMovieRouter: DetailMoviesPresenterToRouterProtocol {
         interactor.presenter = presenter
         return controller
     }
+    
+    func showMovieController(navigationController: UINavigationController, genres: MovieGenresModel?) {
+        let movieModule = MovieRouter.createModule()
+        movieModule.title = genres?.name ?? ""
+        movieModule.genre = genres
+        navigationController.pushViewController(movieModule, animated: true)
+    }
 }

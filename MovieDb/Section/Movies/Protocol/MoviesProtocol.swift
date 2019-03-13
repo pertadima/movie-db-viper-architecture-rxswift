@@ -16,6 +16,7 @@ protocol MoviesViewToPresenterProtocol: class {
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
     func startFetchingUpcomingMovie()
+    func startFetchingMovieByGenre(genre: MovieGenresModel)
     func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection)
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?)
 }
@@ -37,6 +38,7 @@ protocol MoviesPresenterToInteratorProtocol: class {
     func startFechingPlayingNowMovie()
     func startFechingPopularMovie()
     func startFetchingUpcomingMovie()
+    func startFetchingMovieByGenre(genre: MovieGenresModel)
     func startFetchingMoviesPaging(page: Int, enumData: HomeEnumSection)
 }
 

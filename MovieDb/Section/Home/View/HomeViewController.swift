@@ -63,7 +63,6 @@ class HomeViewController: UIViewController {
         tableView.addSubview(refreshControl)
         setConstraint()
         fetchPresenter()
-        setSearchBar()
     }
     
     private func fetchPresenter() {
@@ -85,19 +84,6 @@ class HomeViewController: UIViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         fetchPresenter()
-    }
-    
-    private func setSearchBar() {
-        let searchaButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        searchaButton.setBackgroundImage(#imageLiteral(resourceName: "ic_search"), for: UIControl.State.normal)
-        searchaButton.addTarget(self, action: #selector(self.searchPressed), for: UIControl.Event.touchUpInside)
-        let rightButton: UIBarButtonItem = UIBarButtonItem.init(customView: searchaButton)
-        navigationItem.rightBarButtonItem = rightButton
-    }
-    
-    @objc public func searchPressed() {
-        searchController?.searchBar.placeholder = "Search Movies..."
-        present(searchController ?? UISearchController(), animated: true, completion: nil)
     }
 }
 

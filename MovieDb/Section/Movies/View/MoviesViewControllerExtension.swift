@@ -56,7 +56,12 @@ extension MoviesController: UICollectionViewDataSource, UICollectionViewDelegate
         for indexPath in indexPaths {
             if indexPath.row == self.dataList.count - 1 && self.currentPage < self.totalPage {
                 self.currentPage += 1
-                presentor?.startFetchingMoviesPaging(page: currentPage, enumData: menuEnum ?? .nowPlaying)
+                switch menuEnum {
+                case .nowPlaying?, .popularMovie?, .upComingMovie?:
+                    presentor?.startFetchingMoviesPaging(page: currentPage, enumData: menuEnum ?? .nowPlaying)
+                default:
+                    break
+                }
             }
         }
     }

@@ -25,7 +25,7 @@ class MovieRouter: MoviesPresenterToRouterProtocol {
     
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?) {
             let detailModule = DetailMovieRouter.createModule()
-            detailModule.presentor?.startFechingDetailMovie(id: movie?.id ?? 0)
+            detailModule.movie = movie
             navigationController.pushViewController(detailModule, animated: true)
     }
 }

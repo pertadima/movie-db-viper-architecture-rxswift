@@ -6,7 +6,7 @@
 //  Copyright © 2019 Irfan Pertadima. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
 class ProgressIndicator: UIVisualEffectView {

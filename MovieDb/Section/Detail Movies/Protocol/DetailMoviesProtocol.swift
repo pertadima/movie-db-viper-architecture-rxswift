@@ -14,6 +14,7 @@ protocol DetailMoviesVoiewToPresenterProcol: class {
     var interactor: DetailMoviesPresenterToInteractorProtocol? {get set}
     var router: DetailMoviesPresenterToRouterProtocol? {get set}
     func startFechingDetailMovie(id: Int)
+    func showMovieController(navigationController:UINavigationController, genres: MovieGenresModel?)
 }
 
 protocol DetailMoviesPresenterToViewProtocol: class {
@@ -24,6 +25,7 @@ protocol DetailMoviesPresenterToViewProtocol: class {
 
 protocol DetailMoviesPresenterToRouterProtocol: class {
     static func createModule()-> DetailMoviesViewController
+    func showMovieController(navigationController:UINavigationController, genres: MovieGenresModel?)
 }
 
 protocol DetailMoviesPresenterToInteractorProtocol: class {

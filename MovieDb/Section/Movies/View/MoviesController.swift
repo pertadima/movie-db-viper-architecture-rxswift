@@ -21,6 +21,7 @@ class MoviesController: UIViewController {
                             actionBlock: { (snackbar) in
                                 snackbar.dismiss()
     })
+    var genre: MovieGenresModel?
     var currentPage: Int = 1
     var totalPage: Int = 1
     var beginIndex: Int = 0
@@ -46,17 +47,14 @@ class MoviesController: UIViewController {
         return collectionView
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        dotIndicator = DotIndicatorView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        dotIndicator = DotIndicatorView()
         view.addBackgroundColor(addColor: .white)
         view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
         setConstraintView()
+        fetchPresenter()
     }
     
     private func setConstraintView() {
@@ -73,16 +71,15 @@ class MoviesController: UIViewController {
     }
     
     private func fetchPresenter() {
-        if menuEnum == .nowPlaying {
+        switch menuEnum {
+        case .nowPlaying?:
             presentor?.startFechingPlayingNowMovie()
-        }
-        
-        if menuEnum == .popularMovie {
+        case .popularMovie?:
             presentor?.startFechingPopularMovie()
-        }
-        
-        if menuEnum == .upComingMovie {
+        case .upComingMovie?:
             presentor?.startFetchingUpcomingMovie()
+        default:
+            presentor?.startFetchingMovieByGenre(genre: genre ?? MovieGenresModel())
         }
     }
 }

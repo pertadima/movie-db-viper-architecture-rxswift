@@ -17,6 +17,7 @@ protocol FetchApiServices {
     func fetchPopularMovie() -> Single<UpComingMoviesResponse?>
     func fetchDetailMovie(id: Int) ->  Single<DetailMoviesResponse?>
     func fetchMoviesPaging(page: Int, enumData: HomeEnumSection) -> Single<UpComingMoviesResponse?>
+    func fetchMoviesByGenre(genre: String) ->  Single<UpComingMoviesResponse?>
 }
 
 final class NetworkManager: FetchApiServices {
@@ -43,7 +44,7 @@ final class NetworkManager: FetchApiServices {
                     let error = APIError(with: .internalServerError, message: "Internal Server Error")
                     return Single.error(error)
                 }
-                let error = APIError(with: .internalServerError, message: "Internal Server Error")
+                let error = APIError(with: .unknown, message: "Failed to parse response")
                 return Single.error(error)
             }
     }
@@ -70,6 +71,10 @@ final class NetworkManager: FetchApiServices {
     
     func fetchDetailMovie(id: Int) -> Single<DetailMoviesResponse?> {
         return request(networkService: .detailMovie(id: id))
+    }
+    
+    func fetchMoviesByGenre(genre: String) -> Single<UpComingMoviesResponse?> {
+         return request(networkService: .movieByGenres(genre: genre))
     }
 }
 

@@ -27,6 +27,12 @@ class HomeNowPlayingTableViewCell : BaseTableViewCell {
     
     private let line = addComponent.view(addColor: .lineGray)
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        timer?.invalidate()
+        timer = nil
+    }
+    
     override func prepareView() {
         addBackgroundColor(addColor: .clear)
         addSubview(collectionView)
