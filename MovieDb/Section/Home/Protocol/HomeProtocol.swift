@@ -14,10 +14,7 @@ protocol ViewToPresenterProtocol: class{
     var view: PresenterToViewProtocol? {get set}
     var interactor: PresenterToInteractorProtocol? {get set}
     var router: PresenterToRouterProtocol? {get set}
-    func startFetchingUpcomingMovie()
-    func startFechingPlayingNowMovie()
-    func startFechingPopularMovie()
-    func startFechingGenres()
+    func fetchingHome()
     func showMovieController(navigationController:UINavigationController, menuEnum: HomeEnumSection)
     func showMovieController(navigationController:UINavigationController, genres: MovieGenresModel?)
     func showDetailMovieController(navigationController: UINavigationController, movie: UpcomingMoviesModel?)
@@ -41,10 +38,7 @@ protocol PresenterToRouterProtocol: class {
 
 protocol PresenterToInteractorProtocol: class {
     var presenter:InteractorToPresenterProtocol? {get set}
-    func startFetchingUpcomingMovie()
-    func startFechingPlayingNowMovie()
-    func startFechingPopularMovie()
-    func startFechingGenres()
+    func fetchingHome()
 }
 
 protocol InteractorToPresenterProtocol: class {

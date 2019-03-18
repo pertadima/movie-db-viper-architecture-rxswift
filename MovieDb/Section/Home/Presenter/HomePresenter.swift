@@ -16,20 +16,8 @@ class HomePresenter: ViewToPresenterProtocol {
     
     var router: PresenterToRouterProtocol?
     
-    func startFetchingUpcomingMovie() {
-        interactor?.startFetchingUpcomingMovie()
-    }
-    
-    func startFechingPlayingNowMovie() {
-        interactor?.startFechingPlayingNowMovie()
-    }
-    
-    func startFechingPopularMovie() {
-        interactor?.startFechingPopularMovie()
-    }
-    
-    func startFechingGenres() {
-        interactor?.startFechingGenres()
+    func fetchingHome() {
+        interactor?.fetchingHome()
     }
     
     func showMovieController(navigationController: UINavigationController, menuEnum: HomeEnumSection) {

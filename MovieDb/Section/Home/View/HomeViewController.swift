@@ -66,10 +66,7 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchPresenter() {
-        presentor?.startFetchingUpcomingMovie()
-        presentor?.startFechingPlayingNowMovie()
-        presentor?.startFechingPopularMovie()
-        presentor?.startFechingGenres()
+       presentor?.fetchingHome()
     }
     
     

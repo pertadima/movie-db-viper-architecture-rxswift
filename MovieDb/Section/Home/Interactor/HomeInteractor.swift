@@ -18,63 +18,40 @@ class HomeInteractor : PresenterToInteractorProtocol {
         self.service = service
     }
     
-    func startFetchingUpcomingMovie() {
+    func fetchingHome() {
         presenter?.isLoading(isLoading: true)
-        service.fetchUpcomingMovie()
-        .observeOn(MainScheduler.instance)
-        .subscribe(onSuccess: { [weak self] tasks in
-                guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.fetchedUpcomingMoviesSuccess(data: tasks.results)
+        Observable.zip(service.fetchUpcomingMovie().asObservable(),
+                       service.fetchPlayingNowMovie().asObservable(),
+                       service.fetchPopularMovie().asObservable(),
+                       service.fetchGenreMovie().asObservable())
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: ({ (response) in
+                let (upcomingResponse, playingNowResponse, popularResponse, genreResponse) = response
+                self.upcomingMovieResponse(response: upcomingResponse)
+                self.playingNowResponse(response: playingNowResponse)
+                self.popularMovieResponse(response: popularResponse)
+                self.genreMovieResponse(response: genreResponse)
                 self.presenter?.isLoading(isLoading: false)
-            }) { [weak self] error in
+            }), onError: ({(error) in
                 guard let errorValue = error as? APIError else { return }
-                self?.presenter?.fetchFailed(error: errorValue.message)
-                self?.presenter?.isLoading(isLoading: false)
-        }.disposed(by: disposeBag)
+                self.presenter?.fetchFailed(error: errorValue.message)
+                self.presenter?.isLoading(isLoading: false)
+            })).disposed(by: disposeBag)
     }
     
-    func startFechingPlayingNowMovie() {
-        presenter?.isLoading(isLoading: true)
-        service.fetchPlayingNowMovie()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] tasks in
-                guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showNowPlayingMovie(data: tasks.results)
-                self.presenter?.isLoading(isLoading: false)
-            }) { [weak self] error in
-                guard let errorValue = error as? APIError else { return }
-                self?.presenter?.fetchFailed(error: errorValue.message)
-                self?.presenter?.isLoading(isLoading: false)
-            }.disposed(by: disposeBag)
+    private func upcomingMovieResponse(response: UpComingMoviesResponse?) {
+        self.presenter?.fetchedUpcomingMoviesSuccess(data: response?.results)
     }
     
-    func startFechingPopularMovie() {
-        presenter?.isLoading(isLoading: true)
-        service.fetchPopularMovie()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] tasks in
-                guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showPopularMoviesData(data: tasks.results)
-                self.presenter?.isLoading(isLoading: false)
-            }) { [weak self] error in
-                guard let errorValue = error as? APIError else { return }
-                self?.presenter?.fetchFailed(error: errorValue.message)
-                self?.presenter?.isLoading(isLoading: false)
-            }.disposed(by: disposeBag)
+    private func playingNowResponse(response: UpComingMoviesResponse?) {
+        self.presenter?.showNowPlayingMovie(data: response?.results)
     }
     
-    func startFechingGenres() {
-        presenter?.isLoading(isLoading: true)
-        service.fetchGenreMovie()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] tasks in
-                guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.showGenreMovie(data: tasks.genres)
-                self.presenter?.isLoading(isLoading: false)
-            }) { [weak self] error in
-                guard let errorValue = error as? APIError else { return }
-                self?.presenter?.fetchFailed(error: errorValue.message)
-                self?.presenter?.isLoading(isLoading: false)
-            }.disposed(by: disposeBag)
+    private func popularMovieResponse(response: UpComingMoviesResponse?) {
+        self.presenter?.showPopularMoviesData(data: response?.results)
+    }
+    
+    private func genreMovieResponse(response: MovieGenresResponse?) {
+         self.presenter?.showGenreMovie(data: response?.genres)
     }
 }
