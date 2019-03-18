@@ -16,7 +16,7 @@ extension DetailMoviesViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch detailSection[section] {
         case .header, .desc, .genre:
-            return 1
+            return data != nil ? 1 : 0
         }
     }
     

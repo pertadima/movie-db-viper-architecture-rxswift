@@ -53,11 +53,11 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.isTranslucent = false
-        dotIndicator = DotIndicatorView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dotIndicator = DotIndicatorView()
         view.addBackgroundColor(addColor: .white)
         view.addSubview(tableView)
         tableView.addSubview(refreshControl)
