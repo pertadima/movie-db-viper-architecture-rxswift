@@ -16,7 +16,7 @@ class HomeGenreMovieTableViewCell: BaseTableViewCell {
     var navigationController: UINavigationController?
     
     private lazy var collectionView : UICollectionView = {
-        let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .horizontal, isEstimatedItemSize: false)
+        let collectionView = addComponent.collectionView(id: "collecitonViewCell", delegate: self, datasource: self, scrollDirection: .vertical, isEstimatedItemSize: false)
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 00, left: 30, bottom: 0, right: 30)
         collectionView.showsHorizontalScrollIndicator = false
@@ -51,6 +51,10 @@ class HomeGenreMovieTableViewCell: BaseTableViewCell {
     
     func configureData(data: [MovieGenresModel]?) {
         self.data = data ?? []
+        let plusValue = self.data.count % 2 == 0 ? 0 : 1
+        collectionView.snp.updateConstraints{(make) in
+            make.height.equalTo(60 * ((data?.count ?? 0) / 2 + plusValue))
+        }
         collectionView.reloadData()
     }
 }
@@ -84,7 +88,7 @@ extension HomeGenreMovieTableViewCell: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 60)
+        return CGSize(width: (frame.width - 60) / 2, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
