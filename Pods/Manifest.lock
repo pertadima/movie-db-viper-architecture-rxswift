@@ -1,19 +1,17 @@
 PODS:
-  - Alamofire (4.8.1)
-  - IQKeyboardManagerSwift (6.2.0)
-  - Moya/Core (12.0.1):
+  - Alamofire (4.8.2)
+  - IQKeyboardManagerSwift (6.2.1)
+  - Moya/Core (13.0.0):
     - Alamofire (~> 4.1)
-    - Result (~> 4.0)
-  - Moya/RxSwift (12.0.1):
+    - Result (~> 4.1)
+  - Moya/RxSwift (13.0.0):
     - Moya/Core
     - RxSwift (~> 4.0)
   - Result (4.1.0)
-  - RxAtomic (4.4.1)
-  - RxCocoa (4.4.1):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.4.1):
-    - RxAtomic (~> 4.4)
-  - SnapKit (4.2.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.5.0)
+  - SnapKit (5.0.0)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
@@ -28,20 +26,18 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - Moya
     - Result
-    - RxAtomic
     - RxCocoa
     - RxSwift
     - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
+  Moya: 161263550064ff8a4948e8ff63137fd72a876292
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
-  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
-  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
 PODFILE CHECKSUM: a16af6feefb20708ee3490d99dc92bbf112a418d
 

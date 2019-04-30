@@ -453,7 +453,7 @@ public extension Snackbar {
     /**
      Show the snackbar.
      */
-    @objc public func show() {
+    @objc func show() {
         // Only show once
         if superview != nil {
             return
@@ -644,7 +644,7 @@ public extension Snackbar {
     /**
      Dismiss the snackbar manually.
      */
-    @objc public func dismiss() {
+    @objc func dismiss() {
         // On main thread
         DispatchQueue.main.async {
             () -> Void in
@@ -830,59 +830,59 @@ private extension Snackbar {
             withVisualFormat: "H:|-0-[iconImageView]-2-[messageLabel]-2-[seperateView(0.5)]-2-[actionButton(>=44@999)]-0-[secondActionButton(>=44@999)]-0-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["iconImageView": iconImageView, "messageLabel": messageLabel, "seperateView": separateView, "actionButton": actionButton, "secondActionButton": secondActionButton])
+            views: ["iconImageView": iconImageView as Any, "messageLabel": messageLabel as Any, "seperateView": separateView as Any, "actionButton": actionButton as Any, "secondActionButton": secondActionButton as Any])
         
         let vConstraintsForIconImageView = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-2-[iconImageView]-2-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["iconImageView": iconImageView])
+            views: ["iconImageView": iconImageView as Any])
         
         let vConstraintsForMessageLabel = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-0-[messageLabel]-0-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["messageLabel": messageLabel])
+            views: ["messageLabel": messageLabel as Any])
         
         let vConstraintsForSeperateView = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-4-[seperateView]-4-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["seperateView": separateView])
+            views: ["seperateView": separateView as Any])
         
         let vConstraintsForActionButton = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-0-[actionButton]-0-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["actionButton": actionButton])
+            views: ["actionButton": actionButton as Any])
         
         let vConstraintsForSecondActionButton = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-0-[secondActionButton]-0-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["secondActionButton": secondActionButton])
+            views: ["secondActionButton": secondActionButton as Any])
         
         iconImageViewWidthConstraint = NSLayoutConstraint.init(
-            item: iconImageView, attribute: .width, relatedBy: .equal,
+            item: iconImageView as Any, attribute: .width, relatedBy: .equal,
             toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: Snackbar.snackbarIconImageViewWidth)
         
         actionButtonMaxWidthConstraint = NSLayoutConstraint.init(
-            item: actionButton, attribute: .width, relatedBy: .lessThanOrEqual,
+            item: actionButton as Any, attribute: .width, relatedBy: .lessThanOrEqual,
             toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: actionMaxWidth)
         
         secondActionButtonMaxWidthConstraint = NSLayoutConstraint.init(
-            item: secondActionButton, attribute: .width, relatedBy: .lessThanOrEqual,
+            item: secondActionButton as Any, attribute: .width, relatedBy: .lessThanOrEqual,
             toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: actionMaxWidth)
         
         let vConstraintForActivityIndicatorView = NSLayoutConstraint.init(
-            item: activityIndicatorView, attribute: .centerY, relatedBy: .equal,
+            item: activityIndicatorView as Any, attribute: .centerY, relatedBy: .equal,
             toItem: contentView, attribute: .centerY, multiplier: 1, constant: 0)
         
         let hConstraintsForActivityIndicatorView = NSLayoutConstraint.constraints(
             withVisualFormat: "H:[activityIndicatorView]-2-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["activityIndicatorView": activityIndicatorView])
+            views: ["activityIndicatorView": activityIndicatorView as Any])
         
         iconImageView.addConstraint(iconImageViewWidthConstraint!)
         actionButton.addConstraint(actionButtonMaxWidthConstraint!)
