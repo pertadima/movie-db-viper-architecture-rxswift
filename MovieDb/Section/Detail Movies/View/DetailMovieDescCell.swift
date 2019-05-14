@@ -15,14 +15,14 @@ class DetailMovieDescCell: BaseTableViewCell {
     private let line = addComponent.view(addColor: .lineGray)
     
     private let website = addComponent.label(id: "", type: .roboto_regular, text: "", size: 14, addColor: .textGray, align: .left)
-    
-    private let line2 = addComponent.view(addColor: .lineGray)
    
+    private let genre = addComponent.label(id: "", type: .roboto_regular, text: "", size: 14, addColor: .textGray, align: .left)
+    
     override func prepareView() {
         addSubview(descLabel)
         addSubview(line)
         addSubview(website)
-        addSubview(line2)
+        addSubview(genre)
     }
     
     override func setConstraintsView() {
@@ -33,24 +33,23 @@ class DetailMovieDescCell: BaseTableViewCell {
         }
         
         line.snp.makeConstraints{(make) in
-            make.top.equalTo(descLabel.snp_bottomMargin).offset(20)
+            make.top.equalTo(descLabel.snp_bottomMargin).offset(40)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(1)
         }
         
         website.snp.makeConstraints{(make) in
-            make.top.equalTo(line.snp_bottomMargin).offset(20)
+            make.top.equalTo(line.snp_bottomMargin).offset(40)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
         }
         
-        line2.snp.makeConstraints{(make) in
-            make.top.equalTo(website.snp_bottomMargin).offset(20)
+        genre.snp.makeConstraints{(make) in
+            make.top.equalTo(website.snp_bottomMargin).offset(40)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(1)
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(0)
         }
     }
     
@@ -58,5 +57,7 @@ class DetailMovieDescCell: BaseTableViewCell {
         descLabel.attributedText = attributeText(boldText: "Overview :", lightText: "\n\n\(data?.overview ?? "")", boldTextSize: 16, lightTextSize: 14, color: .black, lightColor: .textGray, boldTextFont: .roboto_medium, lightTextFont: .roboto_regular)
         
         website.attributedText = attributeText(boldText: "Website :", lightText: "\n\n\(data?.homepage ?? "-")", boldTextSize: 16, lightTextSize: 14, color: .black, lightColor: .textGray, boldTextFont: .roboto_medium, lightTextFont: .roboto_regular)
+        
+        genre.attributedText = attributeText(boldText: "Genre :", lightText: "\n", boldTextSize: 16, lightTextSize: 14, color: .black, lightColor: .textGray, boldTextFont: .roboto_medium, lightTextFont: .roboto_regular)
     }
 }

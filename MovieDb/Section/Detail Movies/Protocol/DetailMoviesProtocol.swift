@@ -18,7 +18,7 @@ protocol DetailMoviesVoiewToPresenterProcol: class {
 }
 
 protocol DetailMoviesPresenterToViewProtocol: class {
-    func successLoadDetail(data: DetailMoviesResponse?)
+    func successLoadDetail(data: DetailMoviesResponse?, dataCast: MovieCastResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }
@@ -34,7 +34,7 @@ protocol DetailMoviesPresenterToInteractorProtocol: class {
 }
 
 protocol DetailMoviesInteractorToPresenterProtocol: class {
-    func successLoadDetail(data: DetailMoviesResponse?)
+    func successLoadDetail(data: DetailMoviesResponse?, dataCast: MovieCastResponse?)
     func fetchFailed(error: String)
     func isLoading(isLoading: Bool)
 }

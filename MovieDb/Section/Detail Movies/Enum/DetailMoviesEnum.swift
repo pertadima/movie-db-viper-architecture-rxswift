@@ -7,5 +7,5 @@
 //
 
 enum DetailMoviesEnum {
-    case header, desc, genre
+    case header, desc, genre, cast
 }

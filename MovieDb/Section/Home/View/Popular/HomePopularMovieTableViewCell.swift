@@ -68,7 +68,7 @@ class HomePopularMovieTableViewCell: BaseTableViewCell {
         }
         
         rating.snp.makeConstraints{(make) in
-            make.top.equalTo(descMovie.snp_bottomMargin).offset(10)
+            make.top.equalTo(descMovie.snp_bottomMargin).offset(20)
             make.left.equalTo(star.snp_rightMargin).offset(10)
         }
     }

@@ -19,9 +19,11 @@ protocol FetchApiServices {
     func fetchMoviesPaging(page: Int, enumData: HomeEnumSection) -> Single<UpComingMoviesResponse?>
     func fetchMoviesByGenre(genre: String) ->  Single<UpComingMoviesResponse?>
     func fetchMoviesByGenrePaging(page: Int, genre: String) -> Single<UpComingMoviesResponse?>
+    func fetchMoviesCast(id: Int) -> Single<MovieCastResponse?>
 }
 
 final class NetworkManager: FetchApiServices {
+    
     private let provider = MoyaProvider<NetworkService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     
     func request<T: Codable>(networkService: NetworkService) -> Single<T?> {
@@ -80,6 +82,10 @@ final class NetworkManager: FetchApiServices {
     
     func fetchMoviesByGenrePaging(page: Int, genre: String) -> Single<UpComingMoviesResponse?> {
         return request(networkService: .movieByGenresPaging(genre: genre, page: page))
+    }
+    
+    func fetchMoviesCast(id: Int) -> Single<MovieCastResponse?> {
+        return request(networkService: .moviesCast(id: id))
     }
 }
 

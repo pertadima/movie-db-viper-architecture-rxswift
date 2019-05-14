@@ -25,8 +25,8 @@ class DetailMoviesPresenter: DetailMoviesVoiewToPresenterProcol {
 }
 
 extension DetailMoviesPresenter: DetailMoviesInteractorToPresenterProtocol {
-    func successLoadDetail(data: DetailMoviesResponse?) {
-        view?.successLoadDetail(data: data)
+    func successLoadDetail(data: DetailMoviesResponse?, dataCast: MovieCastResponse?) {
+        view?.successLoadDetail(data: data, dataCast: dataCast)
     }
     
     func fetchFailed(error: String) {

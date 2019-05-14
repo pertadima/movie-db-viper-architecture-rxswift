@@ -16,7 +16,9 @@ extension DetailMoviesViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch detailSection[section] {
         case .header, .desc, .genre:
-            return data != nil ? 1 : 0
+            return (data != nil) ? 1 : 0
+        case .cast:
+            return (dataCast != nil) ? 1 : 0
         }
     }
     
@@ -35,6 +37,10 @@ extension DetailMoviesViewController: UITableViewDataSource, UITableViewDelegate
             cell.detailMoviePresenter = self.presentor
             cell.navigationController = self.navigationController
             cell.configureData(data: self.data?.genres)
+            return cell
+        case .cast:
+            let cell = DetailMoviesCastCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: DetailMoviesCastCell.identifier)
+            cell.configureCell(data: self.dataCast?.cast ?? [])
             return cell
         }
     }

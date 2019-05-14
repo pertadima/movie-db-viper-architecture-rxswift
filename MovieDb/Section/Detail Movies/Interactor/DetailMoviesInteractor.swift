@@ -13,23 +13,24 @@ class DetailMovieInteractor: DetailMoviesPresenterToInteractorProtocol {
     var presenter: DetailMoviesInteractorToPresenterProtocol?
     private let service: NetworkManager
     let disposeBag = DisposeBag()
-    
+
     init(service: NetworkManager = NetworkManager()) {
         self.service = service
     }
     
     func startFechingDetailMovie(id: Int) {
         presenter?.isLoading(isLoading: true)
-        service.fetchDetailMovie(id: id)
+        Observable.zip(service.fetchDetailMovie(id: id).asObservable(),
+                       service.fetchMoviesCast(id: id).asObservable())
             .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] tasks in
-                guard let `self` = self, let tasks = tasks else { return }
-                self.presenter?.successLoadDetail(data: tasks)
+            .subscribe(onNext: ({ (response) in
+                let (detailMoviesResponse, detailMoviesCastResponse) = response
+                self.presenter?.successLoadDetail(data: detailMoviesResponse, dataCast: detailMoviesCastResponse)
                 self.presenter?.isLoading(isLoading: false)
-            }) { [weak self] error in
+            }), onError: ({(error) in
                 guard let errorValue = error as? APIError else { return }
-                self?.presenter?.fetchFailed(error: errorValue.message)
-                self?.presenter?.isLoading(isLoading: false)
-            }.disposed(by: disposeBag)
+                self.presenter?.fetchFailed(error: errorValue.message)
+                self.presenter?.isLoading(isLoading: false)
+            })).disposed(by: disposeBag)
     }
 }

@@ -12,8 +12,9 @@ import SnapKit
 class DetailMoviesViewController: UIViewController {
     var presentor: DetailMoviesVoiewToPresenterProcol?
     var dotIndicator: DotIndicatorView?
-    var detailSection : [DetailMoviesEnum] = [.header, .desc, .genre]
+    var detailSection : [DetailMoviesEnum] = [.header, .desc, .genre, .cast]
     var data : DetailMoviesResponse?
+    var dataCast : MovieCastResponse?
     
     let snackbar = Snackbar(message: "",
                             duration: .middle,
@@ -67,7 +68,8 @@ class DetailMoviesViewController: UIViewController {
 }
 
 extension DetailMoviesViewController: DetailMoviesPresenterToViewProtocol {
-    func successLoadDetail(data: DetailMoviesResponse?) {
+    func successLoadDetail(data: DetailMoviesResponse?, dataCast: MovieCastResponse?) {
+        self.dataCast = dataCast
         self.data = data
         tableView.reloadData()
     }
